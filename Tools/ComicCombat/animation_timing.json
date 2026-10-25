@@ -1,0 +1,72 @@
+[
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_Jab",
+    "frames": 24,
+    "duration": 0.4000000059604645,
+    "trail": 0.0833,
+    "hit": 0.1333,
+    "recover": 0.25
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_Cross",
+    "frames": 30,
+    "duration": 0.5,
+    "trail": 0.1167,
+    "hit": 0.1833,
+    "recover": 0.3167
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_Uppercut",
+    "frames": 42,
+    "duration": 0.699999988079071,
+    "trail": 0.2,
+    "hit": 0.2667,
+    "recover": 0.5
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_Hammer",
+    "frames": 52,
+    "duration": 0.8666666746139526,
+    "trail": 0.2833,
+    "hit": 0.35,
+    "recover": 0.65
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_DashStrike",
+    "frames": 94,
+    "duration": 1.5666666666666667,
+    "trail": 0.14,
+    "hit": 0.2,
+    "recover": 1.27
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_InkBreaker",
+    "frames": 96,
+    "duration": 1.600000023841858,
+    "trail": 0.74,
+    "hit": 0.88,
+    "recover": 1.15
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_HF_AerialStrike",
+    "frames": 60,
+    "duration": 1.0,
+    "trail": 0.2167,
+    "hit": 0.3167,
+    "recover": 0.85
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_RisingPunch",
+    "frames": 48,
+    "duration": 0.800000011920929,
+    "trail": 0.1833,
+    "hit": 0.25,
+    "recover": 0.55
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_AirKick",
+    "frames": 30,
+    "duration": 0.5,
+    "notifies": []
+  }
+]

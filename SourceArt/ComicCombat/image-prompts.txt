@@ -1,0 +1,138 @@
+Image generation mode: built-in image_gen, transparent_background=true.
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 500}
+const r = await tools.image_gen__imagegen({transparent_background:true,prompt:"Use case: stylized-concept. Asset type: a production-ready single 2D impact sprite texture for a real-time Unreal Engine comic-style melee combat effect. Create ONE isolated punch impact starburst centered in a square transparent canvas, leaving at least 12 percent fully transparent padding on every side. Hand-drawn sharp angular graphic ink style. An irregular asymmetric silhouette with 9 to 12 long tapering spear points and a few short torn brush strokes; bold near-black navy outer ink stroke, broad hot vermilion orange main shape, smaller golden-yellow center with one off-white sharp highlight. Flat opaque solid color regions, crisp edges, deliberately graphic and readable at small sizes. The impact radiates from a single compact center. A small number of separated angular orange ink chips close to the starburst. Palette only almost-black ink, vermilion, golden yellow and off-white. True transparent background. No scene, no character, no typography, no letters, no logo, no watermark, no border, no grid, no sprite sheet, no bloom, no glow, no gradient, no smoke. The sprite will be quickly expanded and dissolved over 0.2 seconds in a game; prioritize a strong bold silhouette."});
+store("impactGenerated",r);
+generatedImage(r);
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 400}
+const r=await tools.image_gen__imagegen({transparent_background:true,prompt:"Use case: stylized-concept. Asset type: one production 2D heavy melee impact sprite with true transparent background. Square canvas with 14 percent clear padding around all shapes. ONE isolated horizontal asymmetrical brush impact. Bold aggressive Japanese action animation ink drawing, flat color cutout shapes. A short compact off-white center splits into a wide vermilion orange wing-shaped jagged shock splash, black navy thick ragged outline. Most spikes shoot left and right, two diagonal upward and downward spear tips; narrow black negative gaps break up the orange silhouette. Three to five small separated angular chips near the perimeter. Strong and broad horizontal silhouette distinct from a symmetrical radial starburst. Pure flat colors, sharp visible near-black ink, hot vermilion red, small golden yellow facets and off-white central slash. No blur, glow, gradients, scene, text, lettering, watermark, border or multiple panels. No projectile, no weapon. Strong readable designed impact shape for a 0.22 second real-time combat layered VFX."}); store("heavyImage",r);generatedImage(r);
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 400}
+const r=await tools.image_gen__imagegen({transparent_background:true,prompt:"Use case: stylized-concept. Asset type: single ultimate melee impact VFX sprite for an Unreal Engine comic game, true transparent background. ONE bold isolated radial explosion of torn ink. Square canvas with clear 15 percent empty padding. Asymmetrical angular crown-like starburst, a compact cream-white center, sharp electric cyan and pale ice-blue shards layered over a thick almost-black navy ink silhouette. Six especially long irregular spear points and many short ragged diagonal splinters. Small magenta accent shapes, at most 8 percent of area. The impact has strong alternating transparent gaps. Flat opaque painted cutout shapes only, thick dark outer contour to read on a white arena floor. Close-up highly designed hand-drawn fighting-game hit effect, no gradient, bloom, smoke, blur, circular soft glow, scene, character, letters, text, watermark, grid, panel or background. A distinct premium finisher effect, more angular and larger-looking than a small orange punch spark."});store("ultimateImage",r);generatedImage(r);
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 400}
+const r=await tools.image_gen__imagegen({transparent_background:true,prompt:"Use case: stylized-concept. Asset type: production 2D VFX sprite for a stylized comic fighting game ultimate attack. Create ONE isolated explosive impact with true transparent background, square canvas, all points end at least 12 percent inside image boundaries. Inspired by bold graphic animation: a brilliant angular off-white central explosion surrounded by massive irregular chartreuse yellow and acidic lime-green torn blade shapes. Very dark purple-black backing contour, broad flat yellow-green areas, lime darker interior facets, and a few hot orange thin offset zigzag accent lines close to the main body. Dynamic asymmetrical outward spear shapes, striking silhouette with large open transparent cuts between arms. Several isolated small pointed chunks near silhouette. Flat cel-colored opaque surfaces, crisp edges and thick ink accents. This is a single powerful contact explosion, not a fireball or soft glow. No soft gradients, no photographic realism, no smoke, no environment, no character, no words, no letters, no frame, no sprite grid. Must remain legible against a white environment. One complete centered self-contained illustration on transparency."});store("limeImpact",r);generatedImage(r);
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 400}
+const r=await tools.image_gen__imagegen({transparent_background:true,prompt:"Use case: stylized-concept. Asset type: one standalone game VFX crescent slash sprite, true transparent background. Make a single dramatic thick sweeping crescent arc like a powerful 2.5D fighting-game punch trail. Almost-black plum backing silhouette; a wide flat saturated fuchsia body; a broad pale pink interior highlight; one thinner brilliant cyan companion stroke just outside the main arc. The crescent sweeps from lower left through a wide low curve and turns toward upper right, the leading end is sharp and heavy and the trailing end splits into three tapered torn brush ribbons. Large clear empty center inside the crescent. Stylized hand-drawn clean angular cuts and sharp deliberate negative space. No radial starburst or explosion. Flat opaque cel colors, crisp readable graphic shape, very little glow, no gradients, no blur. Square transparent canvas with 14 percent empty margin around complete silhouette. No people, weapons, objects, floor, scene, lettering, labels, logo, border, grid, or extra unrelated shapes."}); store("crescentImage",r);generatedImage(r);
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 400}
+const r=await tools.image_gen__imagegen({transparent_background:true,prompt:"Use case: stylized-concept. Asset type: single black-and-white anime impact burst sprite for a 2-frame ultimate attack flash in a game. One isolated centered explosion on a true transparent background. Strong asymmetrical radial composition of WHITE razor-sharp spear-shaped speed wedges with substantial BLACK jagged ink shadow outlines and alternating BLACK inner slash shapes. A compact white central core, long dramatic directional white needles radiating in all directions with thick torn black support shapes. Large transparent negative gaps remain between the needles. High-contrast manga impact-frame graphic, deliberately rough tapered ink, crisp large flat areas, no gray values, no glow, no blur, no gradients. Keep the complete silhouette away from the square image edges with at least 15 percent transparent padding. This is a standalone effect overlay, not a comic panel or background image. No border, environment, characters, fists, lettering, typography, logo, grid or watermark."});store("inkFlashImage",r);generatedImage(r);
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 1000}
+const common="Use case: stylized-concept. Asset type: ONE separate reusable sprite PART for modular comic combat VFX in Unreal Engine, not a complete effect or scene. Square transparent canvas with at least 15 percent completely transparent margin. Crisp graphic screen-print style, flat opaque color regions, slightly rough near-black navy ink contour and minimal deliberate halftone. Shared palette: electric cyan, hot magenta, acid-lime accents and off-white. No glow, no bloom, no gradients, no background, no grid, no watermark, no extra surrounding explosion. Bold simple silhouette readable at small size. ";
+const specs=[
+["partSpark",common+"Draw one small off-white four-point sparkle: two long sharp thin diagonal arms crossing through a very compact center, with a short cyan offset edge and a tiny magenta ink shadow. ONLY this single isolated sparkle. No letters, no fragments."],
+["partBolt",common+"Draw one narrow asymmetrical lightning zigzag ribbon with three sharp bends, vertical diagonal composition. Hot magenta main fill, thin cyan inner stripe, tiny acid-lime edging and rough navy ink outline. It is a SMALL ELECTRIC ACCENT PART, not an impact burst. No letters, no particles, no circular center."],
+["partWedge",common+"Draw one elongated triangular comic speed wedge pointing RIGHT, with an irregular tapered ink edge. Cyan body, navy halftone dots graduating toward its wide left base, a narrow magenta offset edge, tiny off-white sliver near its pointed tip. ONLY one wedge, no starburst, no circle, no rays around it, no text."],
+["partHit",common+"Draw only the exact short lettering \"HIT!\" as one compact angled comic impact typography sticker. Heavy slightly italic irregular block letters in off-white and acid lime, thick navy ink outline and a small magenta offset print shadow. Letters remain very clearly legible. Minimal cyan narrow underline stroke. No enclosing panel, no surrounding burst or lightning or particles. Single isolated word only."],
+["partQuestion",common+"Draw only a single bold expressive question mark \"?\". A thick slightly tilted hand-inked acid-lime question mark with navy outline and a small magenta print-registration shadow. Include its detached punctuation dot. No speech bubble, no panel, no burst, no extra symbols or text. This will be a tiny reaction glyph above a character."]
+];
+await Promise.all(specs.map(async([key,prompt])=>{
+const r=await tools.image_gen__imagegen({transparent_background:true,prompt});
+store(key,r);generatedImage(r);
+}));
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 1000}
+const prompt="Use case: stylized-concept. Asset type: ONE isolated game VFX sprite with genuine transparent background. Primary request: a professionally hand-painted anime/comic impact core, an asymmetric explosive sharp starburst with 7 long tapered blade-like rays and several short broken serrations. Orange and warm gold main fill, near-white ivory central hot slash, fuchsia/pink outer brush edge, a few rich plum cutout shadows. Energetic deliberate silhouette, sophisticated hand-drawn thick-to-thin brushwork, rough ink chips and sparse halftone texture INSIDE the color shapes, not soft airbrush. Looks like premium fighting game VFX concept art. Single coherent central burst only, no surrounding ring, no text, no character, no ground, no backdrop, no cast shadow, no panel or checkerboard. Shape fills 80% of square image, generous transparent margin, all tips within frame. Crisp alpha and clean color. Must be a useful separate layer, not a completed VFX scene.";
+store("v3prompts",[{name:"T_CC3_CoreStar",prompt}]);
+const result=await tools.image_gen__imagegen({prompt,transparent_background:true});
+store("v3_core",result);
+generatedImage(result);
+text({keys:Object.keys(result)});
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 1000}
+const common="Use case: stylized-concept. Asset type: ONE separate 2D game VFX component sprite, true transparent background. Premium hand-painted fighting-game / comic animation art, energetic calligraphic thick-to-thin strokes, crisp deliberately designed silhouette with distressed ink edges and sparse halftone INSIDE color shapes. Cohesive palette: saturated tangerine orange, hot pink/fuchsia, golden-yellow or ivory highlight, deep plum small shadow cutouts. Use flat graphic color masses, not photographic fire. Center the whole shape with 10% transparent margin; no cropped tips, text, character, scenery, ground plane, borders, checkerboard, presentation card, drop shadow or extra effects. This is an independent compositing layer, NOT a completed scene. ";
+const jobs=[
+["T_CC3_Bloom", "A chunky asymmetric eruption bloom with three large curling flame lobes, a jagged open center, rising upper-right, tangerine-orange interior and broad fuchsia trailing edges. A different silhouette from a pointed starburst. Just the bloom."],
+["T_CC3_Crescent", "ONE sweeping crescent sword-slash brush arc, nearly 200 degrees curving from lower left through upper center to pointed right, hollow transparent center, strong tapered broad middle. Hot pink rear edge, warm orange main band, a thin ivory cutting edge, torn feathered tail. No rings or sparks."],
+["T_CC3_Slash", "ONE long horizontal scythe-like brush smear, left narrow torn tail to right thick hooked taper, slight curve, layered orange and fuchsia wedge with a bright yellow sliver. Aspect ratio artwork roughly 4:1 centered in square. Just the stroke."],
+["T_CC3_FlameTongue", "ONE upward diagonal torn flame tongue with a large curved flame hook at its head and three split brush tails. Hollow tiny plum negative cut inside, orange body and bold magenta tip edges. Slender 2:1 silhouette."],
+["T_CC3_ShockPetal", "ONE sideways curved explosion petal, like a wide triangular angular flame wing ending in three jagged tips, orange base, hot-pink outside and warm yellow inner stripe. Open crescent negative cut at its base. No full explosion."],
+["T_CC3_ImpactCross", "ONE very sharp four-ray impact cross, long horizontal fine spear, short vertical angled spear, tiny ivory-white center, bold golden orange shoulders and two fine fuchsia accent edges. Clean central detail, no haze or glow background."]
+];
+const prompts=load("v3prompts"); jobs.forEach(([name,p])=>prompts.push({name,prompt:common+p}));store("v3prompts",prompts);
+const result=await Promise.allSettled(jobs.map(async ([name,p])=>{const r=await tools.image_gen__imagegen({prompt:common+p,transparent_background:true});store(name,r);generatedImage(r);text({name,hint:r.output_hint});}));
+text(result.map((x,i)=>({name:jobs[i][0],status:x.status,error:x.status==="rejected"?String(x.reason):undefined})));
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 1400}
+const common="Use case: stylized-concept. ONE isolated transparent-background hand-painted game VFX sprite, premium comic anime fighting-game graphics. Shape design should be bold, controlled, crisp, asymmetric, energetic, with fine distressed edges and subtle halftone inside solid areas. Real transparent alpha, NO black/color background, NO broad glow haze, NO drop shadow, NO scenery or character or typography. Keep ALL geometry fully within the frame with generous 12% transparent margins. Separate compositing component, not an entire VFX scene. ";
+const jobs=[
+["T_CC3_GroundSplat","Top-down orthographic splash of paint thrown forcefully from left to right. Irregular broad tangerine patch in left-center, 5 long thin streaks and small separate droplets shooting right, hot pink jagged perimeter and tiny golden gouges. No circular starburst, no swirl, no concentric forms. Flat paint mark only."],
+["T_CC3_DryBrush","Top-down one broad horizontal dry-brush paint skid with 3 torn streaks and irregular transparent gaps between bristles, strong horizontal direction, thinner trailing left edge and sharp right end. Hot-pink body with tangerine scrapes and violet tiny ink cuts. No starburst, circle, ring, light source or perspective."],
+["T_CC3_Droplets","Sparse small cluster of 7 widely spaced tapered paint droplets and short flicks, running diagonally lower-left to upper-right, with plenty of transparent negative space. Pink and orange droplets with occasional gold inner cut, each droplet uniquely shaped. No large center blob."],
+["T_CC3_Lightning","One thin forked lightning zigzag, 5 angular kinks across the image diagonally, 2 shorter branches, neon cyan main stroke with a very thin ivory-white core and a few lime-green offset accents. Only angular thin lines, no surrounding sparks or broad cloud or haze. Hand-inked irregular line weight."],
+["T_CC3_ElectricHook","One compact angular electric hook shaped like a broken open Z with a short fork at each end. Lime green main wedge strokes, cyan underside and ivory pin-thin bright edge. Sharp graphic corners, narrow line width, much transparent space. No typography or filled plaque."],
+["T_CC3_SparkShards","One sparse directional fan of five small thin tapered shards, like flicked paint needles, cyan and turquoise main color with lime green edges and one small pale ivory shard. The fan is oriented toward upper-right. All shards separated, transparent between them, no central explosion or fog."]
+];
+const prompts=load("v3prompts");jobs.forEach(([name,p])=>prompts.push({name,prompt:common+p}));store("v3prompts",prompts);
+const r=await Promise.allSettled(jobs.map(async ([name,p])=>{const x=await tools.image_gen__imagegen({prompt:common+p,transparent_background:true});store(name,x);generatedImage(x);text({name,hint:x.output_hint});}));
+text(r.map((x,i)=>({name:jobs[i][0],status:x.status})));
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 1000}
+const common="Use case: stylized-concept. Create ONE isolated useful game VFX image component on genuinely transparent alpha. Hand-drawn comic/anime art, bold graphic silhouette, clean confident brush design, a little printed halftone and dry ink texture confined to colored shape. No backdrop, no black rectangle, no presentation layout, no characters, no words, no glow haze, no shadow. All tips fully in frame, transparent margins. ";
+const jobs=[
+["T_CC3_PunchCone","An asymmetric compact spear-cone punch impact, narrow left contact point opening to a wide jagged right edge, three broad triangular tangerine blades with cream-yellow cutting edges and magenta negative wedges. Very graphic straight edges, not flowing flames. A single main shape."],
+["T_CC3_InkCrown","A broken angular crown shock-outline, 8 uneven zigzag teeth forming an OPEN oval halo around an entirely transparent center. Thick magenta hand-inked strokes with violet offset and small tangerine corner accents. Outline only, not solid disc, not a perfect circular ring."],
+["T_CC3_SmokePuff","A side burst cloud component: three chunky rounded cartoon smoke lobes trailing left from a pointed right edge. Deep grape purple shadows, magenta face and few peach-orange inner curlicue cutouts. Graphic opaque color shapes with rough ink edge; open spaces between lobes, no soft fog."],
+["T_CC3_InkCracks","One angular ink fracture: 6 thin irregular sharp black/plum branches shooting from a small left-center origin toward right, each with tiny magenta edge slips. No filled area, no complete star or glass plate. Can overlay an explosion as a dark graphic accent."],
+["T_CC3_SpeedComet","A single horizontal cyan/teal speed comet brushstroke: sharp leading arrow wedge at right, long 3-prong torn tail left. Lime green and ivory thin leading edge, deep purple wedge cuts. Broad simple graphic streak with good negative cutouts, no flame loops or rings."],
+["T_CC3_Twinkle","One small four-point sparkle, asymmetrically long upper-right point and long lower-left point, short other points. Ivory center with turquoise edges and one offset lime green thin accent stroke. A clean simple spark, no thick contour and no fog."],
+["T_CC3_PaperShard","One irregular torn triangular comic-paper shard, flat hot-pink broad triangle with violet halftone dots, a tangerine scraped corner and a few white scratches. Rich black ink nib outline on just two edges, sharply tapered point. Single piece, no text."]
+];
+const prompts=load("v3prompts");jobs.forEach(([name,p])=>prompts.push({name,prompt:common+p}));store("v3prompts",prompts);
+const r=await Promise.allSettled(jobs.map(async ([name,p])=>{const x=await tools.image_gen__imagegen({prompt:common+p,transparent_background:true});store(name,x);generatedImage(x);text({name,hint:x.output_hint});}));
+text(r.map((x,i)=>({name:jobs[i][0],status:x.status})));
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 900}
+const common="Use case: stylized-concept. ONE isolated comic onomatopoeia sticker sprite for a fighting game. True transparent alpha background. Hand-lettered punchy bold tilted type, torn dry-ink black outline, offset bright color shadow, a little halftone printed texture. No rectangle, no background scene, no broad haze, no glow field. Fully contained with 15 percent transparent margins. Lettering is the main asset, very few small accent tick marks, no huge explosion around it. ";
+const jobs=[
+["T_CC3_Hit","Text exactly 'HIT!' in thick condensed italic capitals. Warm ivory/yellow face, hot-pink extrusion, dark purple irregular outline. Dynamic compact horizontal silhouette."],
+["T_CC3_Wham","Text exactly 'WHAM!' in chunky uneven slanted capitals. Orange and gold face, purple underside, one offset cyan keyline. Compact horizontal word, legible and energetic."],
+["T_CC3_Exclaim","Exactly one large exclamation mark !, lime-green face with cyan undershadow and black rough outline, tilted slightly right. Two small ivory tick strokes near its upper end."],
+["T_CC3_Question","Exactly one large question mark ?, orange face, hot pink offset shadow and rough deep plum outline. Slight left tilt, handmade brush typography. Two tiny cyan accent dashes beside it."]
+];
+const prompts=load("v3prompts");jobs.forEach(([name,p])=>prompts.push({name,prompt:common+p}));store("v3prompts",prompts);
+const r=await Promise.allSettled(jobs.map(async ([name,p])=>{const x=await tools.image_gen__imagegen({prompt:common+p,transparent_background:true});store(name,x);generatedImage(x);text({name,hint:x.output_hint});}));
+text(r.map((x,i)=>({name:jobs[i][0],status:x.status})));
+
+
+---
+
+// @exec: {"yield_time_ms": 120000, "max_output_tokens": 500}
+const prompt="Edit this sprite: change lettering from HIT! to exactly HIT, remove the entire exclamation mark and its dot. Retain the same three letters H I T and their hand-lettered shape, ivory/gold face, hot pink shadow, rough dark plum outline and halftone texture. Recenter the 3-letter word within canvas. Remove any background fog/glow. Keep a genuinely transparent background, clean alpha outside lettering, no extra marks or symbols. This is one isolated game VFX word sprite.";
+const r=await tools.image_gen__imagegen({prompt,transparent_background:true,referenced_image_paths:["C:/Users/jooan/.codex/generated_images/01a17375-96c7-7e50-9c18-1f22fc93299e/exec-6c1e9288-e201-4ddf-b4be-9bd0823cdc1f.png"]});store("T_CC3_Hit",r);store("v3hiteditprompt",prompt);generatedImage(r);

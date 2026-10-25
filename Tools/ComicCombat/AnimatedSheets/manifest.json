@@ -1,0 +1,82 @@
+{
+  "version": "vi-contact-v8-large",
+  "reference": "https://earlgenesisthesaga.artstation.com/projects/bge9LG",
+  "reference_video": "https://www.youtube.com/watch?v=JuXvpq7zC9I",
+  "asset_root": "/Game/ComicCombat/Hifi/AnimatedTextures",
+  "frame_order": "left-to-right, then top-to-bottom",
+  "alpha": "straight RGBA; masked material cutoff 0.28",
+  "frame_blending": false,
+  "sheets": [
+    {
+      "file": "T_Animated_impact.png",
+      "columns": 4,
+      "rows": 4,
+      "frames": 16,
+      "duration_seconds": [
+        0.384,
+        0.48,
+        0.592
+      ],
+      "purpose": "contact crack, expansion, hollowing, fragments"
+    },
+    {
+      "file": "T_Animated_shock.png",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "duration_seconds": [
+        0.4,
+        0.544
+      ],
+      "purpose": "directional torn pressure fan"
+    },
+    {
+      "file": "T_Animated_smoke.png",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "duration_seconds": [
+        0.592,
+        0.8
+      ],
+      "purpose": "delayed, lit smoke curls"
+    },
+    {
+      "file": "T_Animated_electric.png",
+      "columns": 4,
+      "rows": 2,
+      "frames": 8,
+      "duration_seconds": [
+        0.288,
+        0.336
+      ],
+      "purpose": "small branching electrical cracks"
+    },
+    {
+      "file": "T_Animated_ground.png",
+      "columns": 4,
+      "rows": 2,
+      "frames": 8,
+      "duration_seconds": [
+        0.736
+      ],
+      "purpose": "ground-aligned animated debris and ink islands"
+    },
+    {
+      "file": "T_Animated_hit.png",
+      "columns": 4,
+      "rows": 2,
+      "frames": 8,
+      "duration_seconds": [
+        0.496
+      ],
+      "purpose": "squashed HIT, readable hold, breakup"
+    }
+  ],
+  "gpu_build_resolution": "256 px per cell; maximum sheet width 1024 px",
+  "implementation": "Independent lifetime and SubUV frame per world-space layer; masked contact/electric, lit smoke/ground; Niagara sparks; shared effect pool. The former rounded strip mesh is no longer generated.",
+  "generation": "Built-in imagegen; full prompts in generation-prompts.json. Original source PNGs are preserved. No source-game textures are copied.",
+  "contact_size_multiplier": 1.45,
+  "contact_lifetime_multiplier": 1.6,
+  "timing": "Contact layers keep their initial burst rate; breakup and smoke linger longer. Charge and movement timing is unchanged."
+}

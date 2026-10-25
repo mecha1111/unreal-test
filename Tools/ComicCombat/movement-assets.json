@@ -1,0 +1,14 @@
+[
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_JumpLift",
+    "duration": 0.4000000059604645
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_AirKick",
+    "duration": 0.4000000059604645
+  },
+  {
+    "asset": "/Game/ComicCombat/Animations/A_CC_Land",
+    "duration": 0.36666667461395264
+  }
+]

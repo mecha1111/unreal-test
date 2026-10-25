@@ -1,0 +1,33 @@
+# Unreal generated files (also applies to source plugins)
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+.vs/
+.idea/
+.vscode/
+*.sln
+*.slnx
+*.suo
+*.VC.db
+*.VC.opendb
+*.opensdf
+*.sdf
+*.user
+*.log
+
+# Local credentials and editor settings
+Config/User*.ini
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Authoring caches and OS files
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+*.blend1
+*.blend2
