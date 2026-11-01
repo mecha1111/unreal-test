@@ -1,0 +1,162 @@
+[
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_EX_CombatIdle.A_EX_CombatIdle",
+    "source": "UAL1/UAL1_SelectedIdle_Loop",
+    "duration": 2.5
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MM_Idle.MM_Idle",
+    "source": "UAL1/UAL1_SelectedIdle_Loop",
+    "duration": 2.5
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_Jab.A_CC_Jab",
+    "source": "UAL1/UAL1_SelectedPunch_Jab",
+    "duration": 0.4
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_Cross.A_CC_Cross",
+    "source": "UAL1/UAL1_SelectedPunch_Cross",
+    "duration": 0.5
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_Hammer.A_CC_Hammer",
+    "source": "KayKit/KayKit_UnarmedMelee_Unarmed_Attack_Kick",
+    "duration": 0.8666666666666667
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_HF_AerialStrike.A_HF_AerialStrike",
+    "source": "KayKit/KayKit_UnarmedMelee_Unarmed_Attack_Kick",
+    "duration": 1.0
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_Uppercut.A_CC_Uppercut",
+    "source": "UAL2/UAL2_SelectedMelee_Hook + UAL2/UAL2_SelectedMelee_Hook_Rec",
+    "duration": 0.7
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_RisingPunch.A_CC_RisingPunch",
+    "source": "UAL2/UAL2_SelectedMelee_Hook + UAL2/UAL2_SelectedMelee_Hook_Rec",
+    "duration": 0.8
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_JumpLift.A_CC_JumpLift",
+    "source": "UAL1/UAL1_SelectedJump_Start",
+    "duration": 1.3333333333333333
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_AirKick.A_CC_AirKick",
+    "source": "UAL2/UAL2_SelectedNinjaJump_Start",
+    "duration": 0.9666666666666667
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_Land.A_CC_Land",
+    "source": "UAL1/UAL1_SelectedJump_Land",
+    "duration": 1.2666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Walk_Fwd.MF_Unarmed_Walk_Fwd",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Walk_Fwd_Left.MF_Unarmed_Walk_Fwd_Left",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Walk_Left.MF_Unarmed_Walk_Left",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Walk_Fwd_Right.MF_Unarmed_Walk_Fwd_Right",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Walk_Right.MF_Unarmed_Walk_Right",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Walk_Bwd.MF_Unarmed_Walk_Bwd",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Walk_Bwd_Left.MF_Unarmed_Walk_Bwd_Left",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Walk_Bwd_Right.MF_Unarmed_Walk_Bwd_Right",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Jog_Fwd.MF_Unarmed_Jog_Fwd",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Jog_Fwd_Left.MF_Unarmed_Jog_Fwd_Left",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Jog_Fwd_Right.MF_Unarmed_Jog_Fwd_Right",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Jog_Left.MF_Unarmed_Jog_Left",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Jog_Right.MF_Unarmed_Jog_Right",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Jog_Bwd.MF_Unarmed_Jog_Bwd",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Jog_Bwd_Left.MF_Unarmed_Jog_Bwd_Left",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MF_Unarmed_Jog_Bwd_Right.MF_Unarmed_Jog_Bwd_Right",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_DashStrike.A_CC_DashStrike",
+    "source": "Alternating UAL1/UAL1_SelectedPunch_Jab / UAL1/UAL1_SelectedPunch_Cross",
+    "duration": 1.5666666666666667
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/A_CC_InkBreaker.A_CC_InkBreaker",
+    "source": "KayKit/KayKit_UnarmedMelee_Unarmed_Attack_Punch_A charge / rush / full-body punch; reduced root travel",
+    "duration": 1.6
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MM_Walk_Fwd.MM_Walk_Fwd",
+    "source": "UAL1/UAL1_SelectedWalk_Loop",
+    "duration": 1.3333333333333333
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MM_Run_Fwd.MM_Run_Fwd",
+    "source": "UAL1/UAL1_SelectedJog_Fwd_Loop",
+    "duration": 0.9333333333333333
+  },
+  {
+    "asset": "/Game/ExorcistV10/Animations/manny/MM_Sprint.MM_Sprint",
+    "source": "UAL1/UAL1_SelectedSprint_Loop",
+    "duration": 0.6666666666666666
+  }
+]

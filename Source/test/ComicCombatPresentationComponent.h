@@ -24,7 +24,8 @@ public:
 		FActorComponentTickFunction* ThisTickFunction) override;
 	/** 카메라 설정을 시작 값으로 저장한다. 소유 캐릭터 BeginPlay에서 호출한다. */
 	void BindCamera(UCameraComponent* InCamera, USpringArmComponent* InBoom);
-	void PlayCue(EComicEffect Effect, const FVector& Location, int32 Variant);
+	void PlayCue(EComicEffect Effect, const FVector& Location, int32 Variant,
+        const FVector& Direction = FVector::ZeroVector);
 	void ConfirmHit(int32 Variant, const FVector& Contact, bool bComboFinish = false);
 	/** 취소/종료 시 이 컴포넌트가 적용한 시간 배율과 화면 연출을 복구한다. */
 	void CancelPresentation();
@@ -33,7 +34,7 @@ public:
 	void OnJump(bool bAirJump);
 	void OnLanding(float DownwardSpeed, const FVector& GroundPoint);
 	/** 궁극기 임팩트 프레임 동안 HUD도 숨겨 전체 화면 대비를 유지한다. */
-	bool IsImpactFlashActive() const { return UltimateFlashAge < FlashDuration; }
+	bool IsImpactFlashActive() const { return ComicMaterial != nullptr && UltimateFlashAge < FMath::Min(FlashDuration, .10f); }
 private:
 	UPROPERTY() TObjectPtr<UCameraComponent> Camera;
 	UPROPERTY() TObjectPtr<USpringArmComponent> Boom;
@@ -45,6 +46,7 @@ private:
 	UPROPERTY(Transient) TArray<TObjectPtr<AComicCombatEffect>> EffectPool;
 	static constexpr int32 MaxRetainedEffects = 16;
 	FVector BaseOffset = FVector::ZeroVector;
+    FQuat BaseMeshRotation = FQuat::Identity;
 	float BaseFov = 85.f;
 	float BaseArmLength = 420.f;
 	float AttackAge = 10.f;
@@ -52,6 +54,7 @@ private:
 	int32 FramingVariant = 0;
 	float KickAge = 1.f;
 	float KickStrength = 0.f;
+    bool bUltimateContactLight = false;
 	float FootPreviousHeight[2] = {0.f,0.f};
     bool FootArmed[2] = {false,false};
     float FootLastSpawn[2] = {-10.f,-10.f};

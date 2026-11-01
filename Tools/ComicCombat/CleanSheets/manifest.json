@@ -1,0 +1,27 @@
+{
+  "impact": {
+    "frames": 16,
+    "columns": 4,
+    "rows": 4
+  },
+  "shock": {
+    "frames": 12,
+    "columns": 4,
+    "rows": 3
+  },
+  "electric": {
+    "frames": 8,
+    "columns": 4,
+    "rows": 2
+  },
+  "ground": {
+    "frames": 8,
+    "columns": 4,
+    "rows": 2
+  },
+  "smoke": {
+    "frames": 12,
+    "columns": 4,
+    "rows": 3
+  }
+}

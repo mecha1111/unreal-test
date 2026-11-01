@@ -1,0 +1,134 @@
+{
+  "groups": [
+    {
+      "group": "skirt",
+      "roots": [
+        "skirt_1_1",
+        "skirt_2_1",
+        "skirt_3_1",
+        "skirt_4_1",
+        "skirt_5_1",
+        "skirt_6_1",
+        "skirt_7_1",
+        "skirt_8_1"
+      ],
+      "capsules": 5,
+      "damping": 0.38,
+      "stiffness": 0.22
+    },
+    {
+      "group": "sleeve",
+      "roots": [
+        "Spring_03_draped_sleeve_chain3_1",
+        "Spring_03_draped_sleeve_chain1_1",
+        "Spring_03_draped_sleeve_chain2_1"
+      ],
+      "capsules": 5,
+      "damping": 0.6,
+      "stiffness": 0.32
+    },
+    {
+      "group": "accessories",
+      "roots": [
+        "Spring_04_sleeve_straps_chain3_1",
+        "Spring_04_sleeve_straps_chain2_1",
+        "Spring_05_shoulder_strap_chain1_1",
+        "Spring_04_sleeve_straps_chain1_1",
+        "Spring_06_shoulder_tassel_chain1_1",
+        "Spring_10_chest_tassels_chain1_1",
+        "Spring_10_chest_tassels_chain2_1",
+        "Spring_07_front_tassel_a_chain1_1",
+        "Spring_08_front_tassel_b_chain1_1",
+        "Spring_09_back_tassel_chain1_1"
+      ],
+      "capsules": 10,
+      "damping": 0.6,
+      "stiffness": 0.4
+    },
+    {
+      "group": "hair",
+      "roots": [
+        "hair_1_1",
+        "hair_2_1",
+        "hair_3_1",
+        "hair_4_1",
+        "hair_5_1",
+        "hair_6_1",
+        "bang_center_1",
+        "bang_left_1",
+        "bang_right_1"
+      ],
+      "capsules": 0,
+      "damping": 0.35,
+      "stiffness": 0.42
+    },
+    {
+      "group": "locks",
+      "roots": [
+        "tripo_lock_21553",
+        "tripo_lock_05074",
+        "tripo_lock_21097",
+        "tripo_lock_17692",
+        "tripo_lock_16714",
+        "tripo_lock_12832",
+        "tripo_lock_08139",
+        "tripo_lock_08486",
+        "tripo_lock_08823",
+        "tripo_lock_09178",
+        "tripo_lock_09673",
+        "tripo_lock_18241",
+        "tripo_lock_10207",
+        "tripo_lock_10572",
+        "tripo_lock_12455",
+        "tripo_lock_12551",
+        "tripo_lock_12739",
+        "tripo_lock_13047",
+        "tripo_lock_13327",
+        "tripo_lock_13506",
+        "tripo_lock_13597",
+        "tripo_lock_20549",
+        "tripo_lock_14108",
+        "tripo_lock_14272",
+        "tripo_lock_15070",
+        "tripo_lock_15147",
+        "tripo_lock_15374",
+        "tripo_lock_15448",
+        "tripo_lock_15606",
+        "tripo_lock_16065",
+        "tripo_lock_16133",
+        "tripo_lock_16580",
+        "tripo_lock_16922",
+        "tripo_lock_17112",
+        "tripo_lock_17419",
+        "tripo_lock_17951",
+        "tripo_lock_18068",
+        "tripo_lock_19356",
+        "tripo_lock_19444",
+        "tripo_lock_19893",
+        "tripo_lock_20603",
+        "tripo_lock_20147",
+        "tripo_lock_20656",
+        "tripo_lock_21571",
+        "tripo_lock_20843",
+        "tripo_lock_21349",
+        "tripo_lock_21407",
+        "tripo_lock_20941",
+        "tripo_lock_21001",
+        "tripo_lock_21116",
+        "tripo_lock_21313",
+        "tripo_lock_21325",
+        "tripo_lock_21474",
+        "tripo_lock_21509",
+        "tripo_lock_21533",
+        "tripo_lock_21549"
+      ],
+      "capsules": 0,
+      "damping": 0.38,
+      "stiffness": 0.62
+    }
+  ],
+  "compile_messages": [
+    "Note: [0144.50] ABP_EX_SecondaryMotion \ucef4\ud30c\uc77c\uc5d0 \uc131\uacf5\ud588\uc2b5\ub2c8\ub2e4! [\uc18c\uc694\uc2dc\uac04 40 ms] (/Game/ExorcistV10/Animations/ABP_EX_SecondaryMotion.ABP_EX_SecondaryMotion)"
+  ],
+  "fixed_step": 60
+}

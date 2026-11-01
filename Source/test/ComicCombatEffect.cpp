@@ -1,4 +1,5 @@
 #include "ComicCombatEffect.h"
+#include "ExorcistFaceComponent.h"
 #include "Playground.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "NiagaraComponent.h"
@@ -42,7 +43,18 @@ AComicCombatEffect::AComicCombatEffect()
     const TCHAR* Sheets[] = {TEXT("impact"),TEXT("shock"),TEXT("smoke"),TEXT("electric"),TEXT("ground"),TEXT("hit")};
     for (const TCHAR* Name : Sheets)
     {
-        const FString Path=FString::Printf(TEXT("/Game/ComicCombat/Hifi/AnimatedTextures/T_Animated_%s.T_Animated_%s"),Name,Name);
+        const FString Path=FCString::Strcmp(Name,TEXT("hit"))==0
+            ? FString::Printf(TEXT("/Game/ComicCombat/Hifi/AnimatedTextures/T_Animated_%s.T_Animated_%s"),Name,Name)
+            : FString::Printf(TEXT("/Game/ComicCombat/Hifi/CleanTextures/T_Clean_%s.T_Clean_%s"),Name,Name);
+        ConstructorHelpers::FObjectFinder<UTexture2D> Texture(*Path);
+        AnimatedTextures.Add(Texture.Object);
+    }
+    const TCHAR* Variations[] = {TEXT("jab_burst"), TEXT("cross_burst"), TEXT("rising_burst"),
+        TEXT("lightning_fork"), TEXT("ground_fracture"), TEXT("arcane_punch"),
+        TEXT("arcane_ultimate"), TEXT("arcane_lightning")};
+    for (const TCHAR* Name : Variations)
+    {
+        const FString Path = FString::Printf(TEXT("/Game/ComicCombat/Hifi/CleanTextures/T_Generated_%s.T_Generated_%s"), Name, Name);
         ConstructorHelpers::FObjectFinder<UTexture2D> Texture(*Path);
         AnimatedTextures.Add(Texture.Object);
     }
@@ -81,6 +93,9 @@ FComicEffectLayer& AComicCombatEffect::AddLayer(int32 Shape,const FLinearColor& 
 		L.Mesh->RegisterComponent();
 	}
 	L.Mesh->SetStaticMesh(Plane);
+    const bool bContact = CachedKind==EComicEffect::Impact || CachedKind==EComicEffect::HeavyImpact || CachedKind==EComicEffect::UltimateImpact;
+    L.Mesh->SetRenderCustomDepth(bContact);
+    L.Mesh->SetCustomDepthStencilValue(13);
 	UMaterialInterface* Mat=OverrideMaterial ? OverrideMaterial : Texture ? SpriteMaterial.Get() : ShapeMaterial.Get();
 	if (!L.Material || L.Material->Parent != Mat)
 	{
@@ -155,16 +170,33 @@ FComicEffectLayer& AComicCombatEffect::AddAnimated(int32 Part, float Delay, floa
         Lit ? AnimatedLitMaterial.Get() : AnimatedMaterial.Get());
     // 스케일 팝 대신 독립 시트의 실제 그림 프레임이 팽창/분열/소멸을 만든다.
     L.bFastExpand = true;
-    L.Material->SetTextureParameterValue(TEXT("Atlas"),AnimatedTextures[Part]);
-    const int32 Rows = Part == 0 ? 4 : Part == 1 || Part == 2 ? 3 : 2;
+    const APlaygroundCharacter* Player = Cast<APlaygroundCharacter>(GetOwner());
+    const int32 HitVariation = Player ? Player->HitCount : AttackVariant;
+    int32 AtlasIndex = Part;
+    if (Contact && Part == 0)
+    {
+        if (AttackVariant == 2 || AttackVariant == 7) AtlasIndex = 8;
+        else if (AttackVariant == 1) AtlasIndex = 7;
+        else if (AttackVariant == 0) AtlasIndex = HitVariation % 3 == 0 ? 0 : 6;
+        else AtlasIndex = HitVariation % 2 == 0 ? 7 : 0;
+    }
+    if (Part == 3 && (Contact || AttackVariant == 5)) AtlasIndex = 9;
+    if (Part == 4 && Contact && HitVariation % 2 == 0) AtlasIndex = 10;
+    // Original generated flipbooks: warm physical contact / cool hextech discharge.
+    if (Contact && Part == 0 && (AttackVariant == 0 || AttackVariant == 4)) AtlasIndex = 11;
+    if (CachedKind == EComicEffect::UltimateImpact && Part == 0) AtlasIndex = 12;
+    if (CachedKind == EComicEffect::UltimateImpact && (Part == 1 || Part == 3)) AtlasIndex = 13;
+    if (!AnimatedTextures.IsValidIndex(AtlasIndex) || !AnimatedTextures[AtlasIndex]) AtlasIndex = Part;
+    L.Material->SetTextureParameterValue(TEXT("Atlas"),AnimatedTextures[AtlasIndex]);
+    const int32 Rows = AtlasIndex >= 6 || Part == 0 ? 4 : Part == 1 || Part == 2 ? 3 : 2;
     L.Material->SetScalarParameterValue(TEXT("Columns"),4.f);
     L.Material->SetScalarParameterValue(TEXT("Rows"),Rows);
     L.Material->SetScalarParameterValue(TEXT("Frames"),Rows*4);
     L.Material->SetScalarParameterValue(TEXT("FastStart"),Contact && Part != 2 ? 1.f : 0.f);
     const float Hues[] = {0.f,.48f,.76f,.95f,.55f,.1f,.88f,.7f};
     L.Material->SetScalarParameterValue(TEXT("HueShift"),Part == 5 ? 0.f : Hues[FMath::Clamp(AttackVariant,0,7)]);
-    L.Material->SetScalarParameterValue(TEXT("PaletteMix"),Part == 2 ? .25f : 1.f);
-    L.Material->SetScalarParameterValue(TEXT("Gain"),Lit ? 1.f : Part == 3 ? 3.2f : Part == 5 ? 1.f : 2.1f);
+    L.Material->SetScalarParameterValue(TEXT("PaletteMix"),AtlasIndex >= 11 ? 0.f : Part == 2 ? .25f : 1.f);
+    L.Material->SetScalarParameterValue(TEXT("Gain"),Lit ? 1.f : Part == 3 ? 1.65f : Part == 5 ? 1.f : 1.3f);
     return L;
 }
 
@@ -225,6 +257,8 @@ void AComicCombatEffect::Initialize(EComicEffect Kind, const FVector& Direction,
     {
         const bool Charge = Kind == EComicEffect::Charge;
         bFollowHand = Charge;
+        if (Charge)
+            if (ACharacter* Character = Cast<ACharacter>(GetOwner())) AddTickPrerequisiteComponent(Character->GetMesh());
         const bool Ultimate = Variant == 5;
         const float Life = Charge ? (Ultimate ? .55f : Variant == 3 ? .27f : .12f) : .22f;
         if (Charge)
@@ -339,7 +373,7 @@ void AComicCombatEffect::Tick(float DeltaSeconds)
     Age+=DeltaSeconds;
     if (ACharacter* Character = Cast<ACharacter>(GetOwner()))
     {
-        if (bFollowHand) SetActorLocation(Character->GetMesh()->GetSocketLocation(AttackVariant == 0 ? TEXT("hand_l") : TEXT("hand_r")));
+        if (bFollowHand) SetActorLocation(UExorcistFaceComponent::StrikeLocation(Character->GetMesh(), AttackVariant));
         else if (bFollowBody) SetActorLocation(Character->GetActorLocation());
     }
     if (CachedKind == EComicEffect::Trail) UpdateTrackedRibbon();
@@ -413,7 +447,8 @@ void AComicCombatEffect::AddHifiImpact(EComicEffect Kind,int32 Variant,const FVe
     const bool Ultimate = Kind == EComicEffect::UltimateImpact;
     const bool Heavy = Kind == EComicEffect::HeavyImpact;
     const float SizeGain = FMath::Clamp(CVarComicImpactScale.GetValueOnGameThread(),.5f,3.f);
-    const float Strength = (Ultimate ? 1.75f : Heavy ? 1.18f : .82f)*SizeGain;
+    // Keep the ultimate centered on contact without covering both fighters.
+    const float Strength = (Ultimate ? 1.30f : Heavy ? 1.18f : .82f)*SizeGain;
     const float Start = Ultimate ? .045f : 0.f;
     const FVector Up = FVector::UpVector;
     const FVector Side = FVector::CrossProduct(Up,Forward).GetSafeNormal();
@@ -423,45 +458,43 @@ void AComicCombatEffect::AddHifiImpact(EComicEffect Kind,int32 Variant,const FVe
     const float Angle = (Variant == 2 || Variant == 7) ? 65.f : Variant == 3 || Variant == 6 ? -38.f : 8.f;
 
     // 작은 접촉 균열 → 넓고 짧은 폭발 → 빈 중심과 날카로운 파편. 16장의 실제 프레임이다.
-    auto& Core = AddAnimated(0,Start,Ultimate ? .37f : Heavy ? .30f : .24f,FVector2D(155.f,85.f)*Strength);
-    Core.Offset = TowardCamera*9.f;
+    auto& Core = AddAnimated(0,Start,Ultimate ? .37f : Heavy ? .30f : .24f,
+        (Ultimate ? FVector2D(135.f,135.f) : FVector2D(155.f,85.f))*Strength);
+    Core.Offset = TowardCamera*2.f;
     Core.Angle = (Variant == 2 || Variant == 7) ? 55.f : Variant == 3 || Variant == 6 ? -30.f : -8.f;
 
     // 방향성 충격파는 접촉점 바깥으로 넓어진다. 두 번째 파츠는 강공격에서만 반대편에 배치한다.
-    const int32 Fans = Heavy || Ultimate ? 2 : 1;
+    const int32 Fans = 1;
     for (int32 I=0; I<Fans; ++I)
     {
         const float S = I ? -.65f : 1.f;
         auto& Fan = AddAnimated(1,Start+.012f+I*.012f,Ultimate ? .34f : .25f,
-            FVector2D(165.f,76.f)*Strength*(I ? .68f : 1.f));
+            (Ultimate ? FVector2D(170.f,170.f) : FVector2D(165.f,76.f))*Strength*(Heavy || Ultimate ? 1.f : .55f));
         Fan.Angle = (Sign*S < 0.f ? 180.f : 0.f)+Angle;
-        Fan.Offset = TowardCamera*(6.f-I*3.f)+ScreenRight*(Sign*S*(22.f*Strength+5.f))
-            +Up*((Variant==2 || Variant==7) ? 18.f*Strength : (I ? -6.f : 5.f));
-        Fan.Velocity = ScreenRight*(Sign*S*55.f)+Up*((Variant==2 || Variant==7) ? 140.f : 8.f);
+        Fan.Offset = -TowardCamera*9.f + Forward*(S*6.f) + Up*(I ? -4.f : 4.f);
+        Fan.Velocity = Forward*(S*55.f)+Up*((Variant==2 || Variant==7) ? 70.f : 8.f);
     }
 
-    auto& Electric = AddAnimated(3,Start+.025f,.18f,FVector2D(Heavy || Ultimate ? 150.f : 95.f,Heavy || Ultimate ? 125.f : 75.f)*Strength);
-    // 중심 폭발은 접촉점에 남기고 보조 파츠만 6~18cm 흩어 층을 구분한다.
-    Electric.Offset = TowardCamera*12.f+Up*17.f+Side*(Variant%2 ? -12.f : 12.f);
-    Electric.Angle = Variant*57.f;
-    if (Ultimate || Variant == 7)
+    if (Variant==7)
     {
-        auto& E = AddAnimated(3,Start+.12f,.28f,FVector2D(190.f,125.f));
-        E.Offset = Side*47.f+Up*12.f+TowardCamera*14.f; E.Angle=128.f;
+    auto& Electric = AddAnimated(3,Start+.025f,.18f,FVector2D(120.f,95.f)*Strength);
+    // 중심은 표면에 고정하고 작은 보조 파츠만 살짝 분리한다.
+    Electric.Offset = TowardCamera*3.f+Up*7.f+Side*(Variant%2 ? -6.f : 6.f);
+    Electric.Angle = Variant*57.f;
     }
     // 연기는 폭발보다 늦게 남는다. 조명을 받는 머티리얼로 깊이와 공간감을 유지한다.
-    const int32 Clouds = Ultimate ? 3 : Heavy ? 2 : 1;
+    const int32 Clouds = Ultimate || Heavy ? 1 : 0;
     for (int32 I=0; I<Clouds; ++I)
     {
         auto& Smoke = AddAnimated(2,Start+.095f+I*.045f,Ultimate ? .50f : .37f,FVector2D(62.f-I*6.f,68.f+I*6.f)*Strength);
         // 중심은 실제 접촉점에 고정하고, 이후 속도로 양옆/위로 퍼뜨린다.
-        Smoke.Offset = TowardCamera*(9.f-I*3.f) + Side*(I%2 ? 11.f : -12.f)
-            +Up*(6.f+I*5.f)+Forward*6.f;
+        Smoke.Offset = TowardCamera*2.f + Side*(I%2 ? 5.f : -5.f)
+            +Up*(3.f+I*3.f);
         Smoke.Velocity = Side*(I%2 ? -155.f : 145.f)+Up*(55.f+I*18.f)+Forward*70.f;
         Smoke.Drag = 1.6f;
         Smoke.Angle = (I ? -42.f : 28.f) + Variant*11.f;
     }
-    if (!ImpactSparks)
+    if ((Heavy || Ultimate) && !ImpactSparks)
     {
         ImpactSparks=NewObject<UNiagaraComponent>(this);
         ImpactSparks->SetupAttachment(RootComponent);
@@ -469,9 +502,12 @@ void AComicCombatEffect::AddHifiImpact(EComicEffect Kind,int32 Variant,const FVe
         ImpactSparks->SetAsset(SparkSystem);
         ImpactSparks->RegisterComponent();
     }
-    ImpactSparks->SetWorldLocation(GetActorLocation());
-    ImpactSparks->SetWorldRotation(Forward.Rotation());
-    ImpactSparks->Activate(true);
+    if (ImpactSparks && (Heavy || Ultimate))
+    {
+        ImpactSparks->SetWorldLocation(GetActorLocation());
+        ImpactSparks->SetWorldRotation(Forward.Rotation());
+        ImpactSparks->Activate(true);
+    }
     Duration=FMath::Max(Duration,.45f);
     FHitResult Ground;
     FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_WorldStatic);
@@ -485,7 +521,7 @@ void AComicCombatEffect::AddHifiImpact(EComicEffect Kind,int32 Variant,const FVe
         const float Angles[] = {0.f,-23.f,31.f};
         const float Hues[] = {0.f,.10f,-.12f};
         const float Palettes[] = {0.f,.48f,.76f,.95f,.55f,.1f,.88f,.7f};
-        const int32 PaintCount = Heavy || Ultimate ? 3 : 2;
+        const int32 PaintCount = Ultimate ? 2 : Heavy ? 1 : 0;
         for (int32 I=0; I<PaintCount; ++I)
         {
             const FVector Spread = GroundForward.RotateAngleAxis(Angles[I],Ground.ImpactNormal);
@@ -501,18 +537,18 @@ void AComicCombatEffect::AddHifiImpact(EComicEffect Kind,int32 Variant,const FVe
             Paint.BaseRotation=FRotationMatrix::MakeFromZX(Ground.ImpactNormal,Spread).ToQuat();
             Paint.Material->SetScalarParameterValue(TEXT("HueShift"),Palettes[FMath::Clamp(Variant,0,7)]+Hues[I]);
         }
-        const int32 DebrisCount = Ultimate ? 6 : Heavy ? 4 : 2;
+        const int32 DebrisCount = Ultimate ? 3 : Heavy ? 2 : 2;
         for (int32 I=0; I<DebrisCount; ++I)
         {
             const float Theta = I*2.39996f+Variant*.7f;
             const FVector Radial = Side*FMath::Cos(Theta)+Forward*FMath::Sin(Theta);
             auto& Chip=AddVolume(HifiShard,FLinearColor(.16f,.20f,.28f),Start+.045f+I*.009f,.48f,
                 FVector(.35f+I*.025f,.22f,.40f),0);
-            Chip.Offset=Ground.ImpactPoint-GetActorLocation()+Up*8.f+Radial*12.f;
+            Chip.Offset=Radial*5.f;
             Chip.Velocity=Radial*(Ultimate ? 240.f : 150.f)+Up*(145.f+I*13.f);
             Chip.Acceleration=-Up*700.f;
             Chip.Tumble=FRotator(230.f,340.f,140.f);
-            if (I< (Heavy || Ultimate ? 3 : 1))
+            if (Ultimate && I==0)
             {
                 auto& Puff=AddAnimated(2,Start+.10f+I*.025f,.38f,FVector2D(65.f,50.f));
                 Puff.Offset=Ground.ImpactPoint-GetActorLocation()+Up*12.f+Radial*14.f;
@@ -545,9 +581,8 @@ void AComicCombatEffect::UpdateTrackedRibbon()
     }
     if (Age<(AttackVariant==5 ? .22f : .12f))
     {
-        const bool Left=AttackVariant==0;
-        const FVector H=Character->GetMesh()->GetSocketLocation(Left ? TEXT("hand_l") : TEXT("hand_r"))-GetActorLocation();
-        const FVector W=Character->GetMesh()->GetSocketLocation(Left ? TEXT("lowerarm_l") : TEXT("lowerarm_r"))-GetActorLocation();
+        const FVector H=UExorcistFaceComponent::StrikeLocation(Character->GetMesh(), AttackVariant)-GetActorLocation();
+        const FVector W=UExorcistFaceComponent::StrikeBaseLocation(Character->GetMesh(), AttackVariant)-GetActorLocation();
         // 정지한 손이 새 점으로 판정되지 않도록 확장한 정점 대신 원래 손 위치를 저장한다.
         const float Distance=HandSamples.IsEmpty() ? 0.f : FVector::Distance(HandSamples.Last(),H);
         if (Distance>120.f)

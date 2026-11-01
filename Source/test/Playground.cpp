@@ -1,9 +1,11 @@
-﻿#include "Playground.h"
+#include "Playground.h"
+#include "ExorcistFaceComponent.h"
 #include "ComicSteppedMeshComponent.h"
 #include "ComicCombatPresentationComponent.h"
 #include "Animation/AnimInstance.h"
 #include "Animation/AnimMontage.h"
 #include "Animation/AnimSequence.h"
+#include "AlphaBlend.h"
 #include "Camera/CameraComponent.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Components/CapsuleComponent.h"
@@ -38,53 +40,61 @@
 #include "UObject/ConstructorHelpers.h"
 
 APlaygroundCharacter::APlaygroundCharacter(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer.SetDefaultSubobjectClass<UComicSteppedMeshComponent>(ACharacter::MeshComponentName))
+    : Super(ObjectInitializer)
 {
     PrimaryActorTick.bCanEverTick = true;
     GetCapsuleComponent()->InitCapsuleSize(42.f, 96.f);
     bUseControllerRotationYaw = false;
     GetCharacterMovement()->bOrientRotationToMovement = true;
-    GetCharacterMovement()->RotationRate = FRotator(0.f, 1080.f, 0.f);
-    GetCharacterMovement()->MaxWalkSpeed = 280.f;
+    GetCharacterMovement()->RotationRate = FRotator(0.f, 900.f, 0.f);
+    GetCharacterMovement()->MaxWalkSpeed = JogSpeed;
     GetCharacterMovement()->JumpZVelocity = 620.f;
     JumpMaxCount = 2;
     GetCharacterMovement()->GravityScale = 1.5f;
     GetCharacterMovement()->AirControl = .72f;
-    GetCharacterMovement()->BrakingDecelerationWalking = 3600.f;
-    GetCharacterMovement()->MaxAcceleration = 4200.f;
+    GetCharacterMovement()->BrakingDecelerationWalking = 2800.f;
+    GetCharacterMovement()->MaxAcceleration = 3200.f;
+    GetCharacterMovement()->GroundFriction = 6.f;
+    GetCharacterMovement()->bUseSeparateBrakingFriction = true;
+    GetCharacterMovement()->BrakingFriction = 4.f;
+    GetCharacterMovement()->BrakingFrictionFactor = 1.f;
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
     CameraBoom->SetupAttachment(RootComponent);
-    CameraBoom->TargetArmLength = 420.f;
-    CameraBoom->SocketOffset = FVector(0.f, 65.f, 55.f);
+    CameraBoom->TargetArmLength = 540.f;
+    CameraBoom->SocketOffset = FVector(0.f, 12.f, 45.f);
     CameraBoom->bUsePawnControlRotation = true;
     CameraBoom->bEnableCameraLag = true;
-    CameraBoom->CameraLagSpeed = 12.f;
+    CameraBoom->bEnableCameraRotationLag = false;
+    CameraBoom->CameraLagSpeed = 18.f;
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-    FollowCamera->FieldOfView = 85.f;
+    FollowCamera->FieldOfView = 78.f;
+    FollowCamera->bUsePawnControlRotation = false;
+    ExorcistFace = CreateDefaultSubobject<UExorcistFaceComponent>(TEXT("ExorcistFace"));
     CombatPresentation = CreateDefaultSubobject<UComicCombatPresentationComponent>(TEXT("CombatPresentation"));
     GetMesh()->SetRenderCustomDepth(true);
     GetMesh()->SetCustomDepthStencilValue(11);
-    GetMesh()->SetRelativeLocation(FVector(0.f, 0.f, -96.f));
+    // CharacterMovement keeps the capsule about 2.15 cm above its floor.
+    GetMesh()->SetRelativeLocation(FVector(0.f, 0.f, -98.f));
     GetMesh()->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
     // 발 소켓 VFX와 공격 포즈는 뷰포트가 가려져도 현재 프레임의 뼈를 사용한다.
     GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
-    static ConstructorHelpers::FObjectFinder<USkeletalMesh> Manny(TEXT("/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple.SKM_Manny_Simple"));
+    static ConstructorHelpers::FObjectFinder<USkeletalMesh> Manny(TEXT("/Game/ExorcistV10/Character/SK_EX_Optimized.SK_EX_Optimized"));
     if (Manny.Succeeded()) GetMesh()->SetSkeletalMesh(Manny.Object);
-    static ConstructorHelpers::FClassFinder<UAnimInstance> Animation(TEXT("/Game/ComicCombat/Animations/ABP_CC_Unarmed"));
+    static ConstructorHelpers::FClassFinder<UAnimInstance> Animation(TEXT("/Game/ExorcistV10/Animations/manny/ABP_CC_Unarmed"));
     if (Animation.Succeeded()) GetMesh()->SetAnimInstanceClass(Animation.Class);
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> Attack1(TEXT("/Game/ComicCombat/Animations/A_CC_Jab.A_CC_Jab"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> Attack2(TEXT("/Game/ComicCombat/Animations/A_CC_Cross.A_CC_Cross"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> Attack3(TEXT("/Game/ComicCombat/Animations/A_CC_Uppercut.A_CC_Uppercut"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> Heavy(TEXT("/Game/ComicCombat/Animations/A_CC_Hammer.A_CC_Hammer"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> Dash(TEXT("/Game/ComicCombat/Animations/A_CC_DashStrike.A_CC_DashStrike"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> Ultimate(TEXT("/Game/ComicCombat/Animations/A_CC_InkBreaker.A_CC_InkBreaker"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> Aerial(TEXT("/Game/ComicCombat/Animations/A_HF_AerialStrike.A_HF_AerialStrike"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> Rising(TEXT("/Game/ComicCombat/Animations/A_CC_RisingPunch.A_CC_RisingPunch"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> Attack1(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_Jab.A_CC_Jab"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> Attack2(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_Cross.A_CC_Cross"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> Attack3(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_Uppercut.A_CC_Uppercut"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> Heavy(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_Hammer.A_CC_Hammer"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> Dash(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_DashStrike.A_CC_DashStrike"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> Ultimate(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_InkBreaker.A_CC_InkBreaker"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> Aerial(TEXT("/Game/ExorcistV10/Animations/manny/A_HF_AerialStrike.A_HF_AerialStrike"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> Rising(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_RisingPunch.A_CC_RisingPunch"));
     AttackAnimations = {Attack1.Object, Attack2.Object, Attack3.Object, Heavy.Object, Dash.Object, Ultimate.Object, Aerial.Object, Rising.Object};
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> JumpClip(TEXT("/Game/ComicCombat/Animations/A_CC_JumpLift.A_CC_JumpLift"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> AirClip(TEXT("/Game/ComicCombat/Animations/A_CC_AirKick.A_CC_AirKick"));
-    static ConstructorHelpers::FObjectFinder<UAnimSequence> LandClip(TEXT("/Game/ComicCombat/Animations/A_CC_Land.A_CC_Land"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> JumpClip(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_JumpLift.A_CC_JumpLift"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> AirClip(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_AirKick.A_CC_AirKick"));
+    static ConstructorHelpers::FObjectFinder<UAnimSequence> LandClip(TEXT("/Game/ExorcistV10/Animations/manny/A_CC_Land.A_CC_Land"));
     MovementAnimations = {JumpClip.Object, AirClip.Object, LandClip.Object};
 }
 
@@ -92,11 +102,6 @@ void APlaygroundCharacter::BeginPlay()
 {
     Super::BeginPlay();
     CombatPresentation->BindCamera(FollowCamera, CameraBoom);
-    if (UMaterialInterface* Armor = LoadObject<UMaterialInterface>(nullptr,
-        TEXT("/Game/ComicCombat/Materials/M_CC_Armor.M_CC_Armor")))
-    {
-        GetMesh()->SetMaterial(0, Armor);
-    }
     if (UAnimInstance* Anim = GetMesh()->GetAnimInstance()) Anim->SetRootMotionMode(ERootMotionMode::IgnoreRootMotion);
     if (APlayerController* PC = Cast<APlayerController>(Controller))
     {
@@ -137,7 +142,7 @@ void APlaygroundCharacter::SetupPlayerInputComponent(UInputComponent* Input)
     auto& Back = Mapping->MapKey(MoveAction, EKeys::S);
     Back.Modifiers.Add(NewObject<UInputModifierNegate>(Mapping));
     Back.Modifiers.Add(NewObject<UInputModifierSwizzleAxis>(Mapping));
-    Mapping->MapKey(LookAction, EKeys::Mouse2D);
+    // Mouse look is handled by the controller independently of combat actions.
     Mapping->MapKey(JumpAction, EKeys::SpaceBar);
     Mapping->MapKey(AttackAction, EKeys::LeftMouseButton);
     Mapping->MapKey(AttackAction, EKeys::V); // 임시 검증 키: HUD 안내에는 표시하지 않는다.
@@ -145,7 +150,6 @@ void APlaygroundCharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Mapping->MapKey(HeavyAction, EKeys::B); // 임시 검증 키: HUD 안내에는 표시하지 않는다.
     Mapping->MapKey(DashAction, EKeys::E);
     Mapping->MapKey(UltimateAction, EKeys::Q);
-    Mapping->MapKey(PoseStepAction, EKeys::P);
     Mapping->MapKey(CancelAction, EKeys::LeftControl);
     Mapping->MapKey(CancelAction, EKeys::RightControl);
     Mapping->MapKey(RunAction, EKeys::LeftShift);
@@ -163,7 +167,6 @@ void APlaygroundCharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Enhanced->BindAction(DashAction, ETriggerEvent::Started, this, &APlaygroundCharacter::DashAttack);
     Enhanced->BindAction(UltimateAction, ETriggerEvent::Started, this, &APlaygroundCharacter::UltimateAttack);
     Enhanced->BindAction(CancelAction, ETriggerEvent::Started, this, &APlaygroundCharacter::CancelAttack);
-    Enhanced->BindAction(PoseStepAction, ETriggerEvent::Started, this, &APlaygroundCharacter::TogglePoseStep);
 }
 
 void APlaygroundCharacter::PawnClientRestart()
@@ -201,14 +204,14 @@ void APlaygroundCharacter::Look(const FInputActionValue& Value)
 void APlaygroundCharacter::StartRun()
 {
     bRunning = true;
-    GetCharacterMovement()->MaxWalkSpeed = 760.f;
+    GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 }
 
 void APlaygroundCharacter::StopRun()
 {
     // 키를 떼거나 액션이 취소되면 즉시 걷기로 복귀한다.
     bRunning = false;
-    GetCharacterMovement()->MaxWalkSpeed = 280.f;
+    GetCharacterMovement()->MaxWalkSpeed = JogSpeed;
 }
 
 void APlaygroundCharacter::Attack() { RequestAction(0); }
@@ -244,7 +247,17 @@ void APlaygroundCharacter::Landed(const FHitResult& Hit)
     if (DownwardSpeed > 220.f)
     {
         CombatPresentation->OnLanding(DownwardSpeed, Hit.ImpactPoint);
-        if (!bAttacking) PlayMovementAnimation(2);
+        if (!bAttacking)
+        {
+            // 이동 착지는 전신 착지 클립으로 달리기를 덮지 않는다.
+            if (GetVelocity().SizeSquared2D() > FMath::Square(120.f))
+            {
+                if (UAnimInstance* Anim = GetMesh()->GetAnimInstance())
+                    if (MovementMontage) Anim->Montage_Stop(.10f, MovementMontage);
+                MovementMontage = nullptr;
+            }
+            else PlayMovementAnimation(2);
+        }
     }
 }
 
@@ -254,7 +267,7 @@ void APlaygroundCharacter::PlayMovementAnimation(int32 Index)
     if (UAnimInstance* Anim = GetMesh()->GetAnimInstance())
     {
         // 이동 몽타주는 공격 상태/노티파이를 변경하지 않고 기본 이동 포즈로 블렌딩된다.
-        Anim->PlaySlotAnimationAsDynamicMontage(MovementAnimations[Index], TEXT("DefaultSlot"), .035f, .12f);
+        MovementMontage = Anim->PlaySlotAnimationAsDynamicMontage(MovementAnimations[Index], TEXT("DefaultSlot"), .065f, .12f);
     }
 }
 
@@ -270,12 +283,9 @@ void APlaygroundCharacter::StartAttack(int32 Variant)
     ActiveMontage = nullptr;
     const bool bLinking = PreviousMontage != nullptr;
     bContinuousAttack = bLinking && Variant < 4;
-    // 이전 포즈는 짧게 섞되 시간 진행을 멈춰 지연 타격 노티파이가 다시 나오지 않게 한다.
-    if (PreviousMontage)
-    {
-        Anim->Montage_Pause(PreviousMontage);
-        Anim->Montage_Stop(.075f,PreviousMontage);
-    }
+    // 이전 동작의 속도를 유지하며 다음 준비 자세와 교차 블렌딩한다.
+    // 지연 노티파이는 HandleCombatCue의 출처 검사로 차단한다.
+    MovementMontage = nullptr;
     ChainBlendUntil = bLinking ? GetWorld()->GetTimeSeconds()+.10f : -1.f;
     const float Now = GetWorld()->GetTimeSeconds();
     FVector Aim = Controller ? FRotator(0.f,Controller->GetControlRotation().Yaw,0.f).Vector() : GetActorForwardVector();
@@ -284,8 +294,12 @@ void APlaygroundCharacter::StartAttack(int32 Variant)
     if (AssistedTarget.IsValid()) Aim = (AssistedTarget->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
     SetActorRotation(Aim.Rotation());
     const float EntryTime = bLinking && Variant < 4 ? .0333f : 0.f;
-    ActiveMontage = Anim->PlaySlotAnimationAsDynamicMontage(Sequence, TEXT("DefaultSlot"),
-        bLinking ? .075f : .045f, .12f, 1.f, 1, -1.f, EntryTime);
+    FAlphaBlendArgs BlendIn(bLinking ? (Variant == 3 ? .16f : .10f) : .065f);
+    BlendIn.BlendOption = EAlphaBlendOption::HermiteCubic;
+    FAlphaBlendArgs BlendOut(.14f);
+    BlendOut.BlendOption = EAlphaBlendOption::HermiteCubic;
+    ActiveMontage = Anim->PlaySlotAnimationAsDynamicMontage_WithBlendArgs(Sequence,
+        TEXT("DefaultSlot"), BlendIn, BlendOut, 1.f, 1, -1.f, EntryTime);
     if (!ActiveMontage) { FinishAttack(); return; }
     if (Variant == 5) UltimateCharge = 0.f;
     FOnMontageEnded EndDelegate;
@@ -294,6 +308,7 @@ void APlaygroundCharacter::StartAttack(int32 Variant)
     bAttacking = true;
     bCanChain = false;
     bStrikeResolved = false;
+    PendingStrikes.Reset();
     bAwaitingLanding = false;
     FlurryHit = -1;
     AttackPhase = 0;
@@ -319,7 +334,7 @@ void APlaygroundCharacter::StartAttack(int32 Variant)
         GetCharacterMovement()->StopMovementImmediately();
 
     }
-    CombatPresentation->PlayCue(EComicEffect::Charge, GetMesh()->GetSocketLocation(Variant == 0 ? TEXT("hand_l") : TEXT("hand_r")), Variant);
+    CombatPresentation->PlayCue(EComicEffect::Charge, UExorcistFaceComponent::StrikeLocation(GetMesh(), Variant), Variant);
 }
 
 void APlaygroundCharacter::HandleCombatCue(int32 Cue, UAnimSequenceBase* SourceAnimation)
@@ -343,14 +358,15 @@ void APlaygroundCharacter::HandleCombatCue(int32 Cue, UAnimSequenceBase* SourceA
         bStrikeResolved = true;
         AttackPhase = 2;
         AddActorWorldOffset(GetActorForwardVector() * 8.f, true);
-        ResolveAttack();
+        PendingStrikes.Add(FlurryHit);
         return;
     }
     if (Cue == 0 || (Cue >= 20 && Cue <= 24 && ActiveAttack == 4))
     {
         AttackPhase = 1;
         CombatPresentation->PlayCue(EComicEffect::Trail,
-            GetActorLocation() + GetActorForwardVector() * 25.f + FVector(0.f, 0.f, 20.f), ActiveAttack == 4 ? (Cue == 24 ? 2 : (Cue - 20) % 2) : ActiveAttack);
+            UExorcistFaceComponent::StrikeLocation(GetMesh(), ActiveAttack == 4 ? (Cue == 24 ? 2 : FMath::Max(0, Cue - 20) % 2) : ActiveAttack),
+            ActiveAttack == 4 ? (Cue == 24 ? 2 : FMath::Max(0, Cue - 20) % 2) : ActiveAttack);
     }
     else if (Cue == 1 && !bStrikeResolved)
     {
@@ -363,16 +379,29 @@ void APlaygroundCharacter::HandleCombatCue(int32 Cue, UAnimSequenceBase* SourceA
         }
         bStrikeResolved = true;
         AttackPhase = 2;
-        ResolveAttack();
+        PendingStrikes.Add(-1);
         if (ActiveAttack == 7) bRisePending = true;
     }
     else if (Cue == 2)
     {
         AttackPhase = 3;
-        CombatPresentation->PlayCue(EComicEffect::Recovery, GetMesh()->GetSocketLocation(TEXT("hand_r")), ActiveAttack);
+        CombatPresentation->PlayCue(EComicEffect::Recovery, UExorcistFaceComponent::StrikeLocation(GetMesh(), GetImpactVariant()), GetImpactVariant());
         bCanChain = true;
 
     }
+}
+
+void APlaygroundCharacter::FlushPendingStrikes()
+{
+    if (!bAttacking) { PendingStrikes.Reset(); return; }
+    const int32 LatestFlurryHit = FlurryHit;
+    for (int32 Pending : PendingStrikes)
+    {
+        if (ActiveAttack == 4) FlurryHit = Pending;
+        ResolveAttack();
+    }
+    FlurryHit = LatestFlurryHit;
+    PendingStrikes.Reset();
 }
 
 void APlaygroundCharacter::ResolveAttack()
@@ -380,6 +409,8 @@ void APlaygroundCharacter::ResolveAttack()
     const FVector Start = GetActorLocation() + GetActorForwardVector() * 35.f;
     const bool bUltimate = ActiveAttack == 5;
     const int32 ImpactVariant = GetImpactVariant();
+    const FVector StrikePoint = UExorcistFaceComponent::StrikeLocation(GetMesh(), ImpactVariant);
+    LastStrikePoint = StrikePoint;
     const FVector End = Start + GetActorForwardVector() * (bUltimate ? 245.f : ActiveAttack == 7 ? 170.f : 155.f);
     FCollisionObjectQueryParams Objects;
     Objects.AddObjectTypesToQuery(ECC_WorldDynamic);
@@ -401,6 +432,9 @@ void APlaygroundCharacter::ResolveAttack()
         if (!Target || Damaged.Contains(Target) || !HasClearCombatPath(Target)) continue;
         if (FVector::DotProduct((Target->GetActorLocation()-GetActorLocation()).GetSafeNormal2D(),GetActorForwardVector()) < -.05f) continue;
         Damaged.Add(Target);
+        // 피격 모션/회전이 바뀌기 전에 현재 몸 표면을 잡는다.
+        FName ContactBone;
+        const FVector Contact = Target->GetCombatContact(StrikePoint, GetActorLocation(), ContactBone);
         const float Applied = UGameplayStatics::ApplyDamage(Target, StrikeDamage, Controller, this, nullptr);
         if (Applied > 0.f)
         {
@@ -415,7 +449,7 @@ void APlaygroundCharacter::ResolveAttack()
             if (HitNow-LastHitTime > 2.2f) ComboHitCount = 0;
             ++ComboHitCount;
             LastHitTime = HitNow;
-            const FVector Contact = Target->GetCombatContact(GetActorLocation(), ImpactVariant);
+            LastContactBone = ContactBone;
             LastContactPoint = Contact;
             const float ContactDistance = FVector::DistSquared(Contact, GetActorLocation());
             if (ContactDistance < NearestContactDistance)
@@ -426,7 +460,7 @@ void APlaygroundCharacter::ResolveAttack()
             if (!bUltimate)
             {
                 CombatPresentation->PlayCue(ImpactVariant >= 2 ? EComicEffect::HeavyImpact : EComicEffect::Impact,
-                    Contact, ImpactVariant);
+                    Contact, ImpactVariant, (Target->GetActorLocation() - GetActorLocation()).GetSafeNormal2D());
             }
             if (APlayerController* PC = Cast<APlayerController>(Controller))
             {
@@ -437,7 +471,7 @@ void APlaygroundCharacter::ResolveAttack()
     }
     if (bUltimate && bAnyHit)
     {
-        CombatPresentation->PlayCue(EComicEffect::UltimateImpact, UltimateContact, ActiveAttack);
+        CombatPresentation->PlayCue(EComicEffect::UltimateImpact, UltimateContact, ActiveAttack, (UltimateContact - GetActorLocation()).GetSafeNormal2D());
     }
     if (bAnyHit)
     {
@@ -476,7 +510,7 @@ void APlaygroundCharacter::FinishAttack()
     AssistedTarget.Reset();
     LastComboEndTime = GetWorld()->GetTimeSeconds();
     GetCharacterMovement()->bOrientRotationToMovement = true;
-    GetCharacterMovement()->MaxWalkSpeed = bRunning ? 760.f : 280.f;
+    GetCharacterMovement()->MaxWalkSpeed = bRunning ? SprintSpeed : JogSpeed;
 }
 
 void APlaygroundCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -502,20 +536,18 @@ void APlaygroundCharacter::Tick(float DeltaSeconds)
         LaunchCharacter(GetActorForwardVector()*110.f + FVector(0,0,560.f),true,true);
     }
     UAnimInstance* Anim = GetMesh()->GetAnimInstance();
+    // 정지 착지 도중 이동을 시작해도 즉시 이동 포즈로 돌아간다.
+    if (MovementMontage && Anim && !GetCharacterMovement()->IsFalling()
+        && GetVelocity().SizeSquared2D() > FMath::Square(120.f))
+    {
+        Anim->Montage_Stop(.10f, MovementMontage);
+        MovementMontage = nullptr;
+    }
     const float ClipTime = bAttacking && ActiveMontage && Anim ? Anim->Montage_GetPosition(ActiveMontage) : 0.f;
     AttackClipTime = ClipTime;
     const float ImpactTimes[] = {.1333f, .1833f, .2667f, .35f, .20f, .88f, .3167f, .25f};
     const float ImpactTime = ImpactTimes[FMath::Clamp(ActiveAttack, 0, 7)];
-    // 캐릭터 위치·입력·판정은 매 틱 진행하고, 표시할 뼈 포즈만 의도적으로 홀드한다.
-    DisplayPoseFPS = GetVelocity().Size2D() > 350.f ? 24.f : GetVelocity().Size2D() > 10.f ? 18.f : 12.f;
-    if (GetCharacterMovement()->IsFalling()) DisplayPoseFPS = 24.f;
-    if (bAttacking) DisplayPoseFPS = ClipTime < ImpactTime - .065f ? 12.f : ClipTime < ImpactTime + .075f ? 60.f : 18.f;
-    if (bAttacking && ActiveAttack == 4 && ClipTime > .13f && ClipTime < 1.22f) DisplayPoseFPS = 60.f;
-    if (bAttacking && Now < ChainBlendUntil) DisplayPoseFPS = 60.f;
-    // 단발의 코믹한 홀드는 남기고, 연타 중 재장전/후속 동작은 30Hz 이상으로 연결한다.
-    if (bAttacking && bContinuousAttack) DisplayPoseFPS = FMath::Max(DisplayPoseFPS,30.f);
-    if (!bStylizedPoseStep) DisplayPoseFPS = 0.f;
-    if (UComicSteppedMeshComponent* Stepped = Cast<UComicSteppedMeshComponent>(GetMesh())) Stepped->SetPoseCadence(DisplayPoseFPS);
+    DisplayPoseFPS = 0.f; // Evaluate animation every frame; hit-stop is independent.
     if (bAttacking && PoseHoldUntil <= Now)
     {
         if (ActiveAttack == 6 && GetCharacterMovement()->IsFalling() && ClipTime > .18f)
@@ -546,7 +578,7 @@ void APlaygroundCharacter::Tick(float DeltaSeconds)
     else if (DashUntil > 0.f)
     {
         DashUntil = -1.f;
-        GetCharacterMovement()->MaxWalkSpeed = bRunning ? 760.f : 280.f;
+        GetCharacterMovement()->MaxWalkSpeed = bRunning ? SprintSpeed : JogSpeed;
     }
     ConsumeBufferedAction();
     if (GetActorLocation().Z < -700.f)
@@ -560,7 +592,7 @@ void APlaygroundCharacter::Tick(float DeltaSeconds)
 
 void APlaygroundCharacter::TogglePoseStep()
 {
-    bStylizedPoseStep = !bStylizedPoseStep;
+    bStylizedPoseStep = false;
 }
 
 void APlaygroundCharacter::SetAutomationInputIsolation(bool bEnabled)
@@ -598,7 +630,8 @@ APlaygroundTarget::APlaygroundTarget()
     TargetCollision->SetupAttachment(RootComponent);
     TargetCollision->InitCapsuleSize(42.f, 96.f);
     TargetCollision->SetCollisionProfileName(TEXT("BlockAllDynamic"));
-    CharacterVisual = CreateDefaultSubobject<UComicSteppedMeshComponent>(TEXT("CharacterVisual"));
+    TargetCollision->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+    CharacterVisual = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterVisual"));
     CharacterVisual->SetupAttachment(RootComponent);
     CharacterVisual->SetRelativeLocation(FVector(0.f, 0.f, -96.f));
     CharacterVisual->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
@@ -692,12 +725,23 @@ float APlaygroundTarget::TakeDamage(float Damage, const FDamageEvent& Event, ACo
     return Applied;
 }
 
-FVector APlaygroundTarget::GetCombatContact(const FVector& AttackerLocation, int32 Variant) const
+FVector APlaygroundTarget::GetCombatContact(const FVector& StrikePoint, const FVector& AttackerLocation, FName& Bone) const
 {
     const FVector Outward = (AttackerLocation - GetActorLocation()).GetSafeNormal2D();
-    const float Height = Variant == 7 ? 48.f : Variant == 2 ? 54.f : Variant == 3 ? -12.f : Variant == 5 ? 36.f : Variant == 6 ? -20.f : 43.f;
-    return GetActorLocation() + Outward * (TargetCollision->GetScaledCapsuleRadius() + 9.f)
-        + FVector(0.f, 0.f, Height);
+    // 관대한 판정으로 주먹이 몸 안/뒤에 들어간 경우에도 공격자 쪽 표면을 선택한다.
+    FVector Probe = StrikePoint;
+    const float Front = FVector::DotProduct(Probe - GetActorLocation(), Outward);
+    Probe += Outward * FMath::Max(0.f, TargetCollision->GetScaledCapsuleRadius() + 5.f - Front);
+    FVector Point, Normal;
+    float Distance = 0.f;
+    if (CharacterVisual && CharacterVisual->K2_GetClosestPointOnPhysicsAsset(Probe, Point, Normal, Bone, Distance))
+    {
+        return Point + Normal.GetSafeNormal() * 2.f;
+    }
+    Bone = NAME_None;
+    FVector Fallback = GetActorLocation() + Outward * (TargetCollision->GetScaledCapsuleRadius() + 2.f);
+    Fallback.Z = FMath::Clamp(StrikePoint.Z, GetActorLocation().Z - 60.f, GetActorLocation().Z + 65.f);
+    return Fallback;
 }
 
 void APlaygroundTarget::Tick(float DeltaSeconds)
@@ -774,9 +818,9 @@ void APlaygroundHUD::DrawHUD()
     Super::DrawHUD();
     APlaygroundCharacter* Player = Cast<APlaygroundCharacter>(GetOwningPawn());
     if (!Canvas || !Player) return;
-    DrawCombatInterface(Player);
     if (const UComicCombatPresentationComponent* Presentation = Player->FindComponentByClass<UComicCombatPresentationComponent>())
         if (Presentation->IsImpactFlashActive()) return;
+    DrawCombatInterface(Player);
     const float Scale = FMath::Clamp(Canvas->SizeX / 1280.f, .75f, 1.5f);
     const float Now = GetWorld()->GetTimeSeconds();
     for (const FDamageNumber& Number : DamageNumbers)

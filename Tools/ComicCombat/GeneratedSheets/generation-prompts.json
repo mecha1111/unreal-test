@@ -1,0 +1,48 @@
+{
+  "tool": "built-in image_gen",
+  "transparent_background": true,
+  "assets": [
+    {
+      "name": "impact",
+      "prompt": "Use case: stylized-concept. Asset type: production-ready 2D game VFX animation sprite sheet for Unreal Engine. Original hand-drawn anime fighting-game effects, clean sharp graphic silhouettes inspired by simple cel-animated impact design. Main colour vivid purple, small pale yellow-lime inner accent, a little off-white at the brightest initial flash. NO outlines around the atlas, NO grid lines, NO text, NO numbers, NO labels, NO shadows on a background, NO checkerboard, NO scenery. Truly transparent alpha background. Perfectly uniform equal-sized rectangular cells, row-major chronological animation, aligned centre and identical camera/view/scale throughout. Each effect completely contained within its cell with 12% padding. Flat clean two-tone opaque shapes, purposeful asymmetry, pointed wedges and concave curves; no glow haze, no excessive detail or confetti. Animation must visibly change shape frame by frame: fast initial expansion, brief strong silhouette, break apart and fade into very sparse fragments. Final cell almost empty. This is a usable texture atlas, not a presentation board. Square canvas, EXACTLY 4 columns by 4 rows, 16 frames. A compact punch contact explosion with 5 to 7 strong irregular pointed wedges. First frame tiny bright spark; frames 2-5 broad asymmetric burst and bright centre; frames 6-10 open empty centre and outward breaking purple pointed lobes; frames 11-16 only 3-5 dwindling sharp fragments. Organic hand-drawn angular burst, not a symmetric compass star. No enclosing ring."
+    },
+    {
+      "name": "shock",
+      "prompt": "Use case: stylized-concept. Asset type: production-ready 2D game VFX animation sprite sheet for Unreal Engine. Original hand-drawn anime fighting-game effects, clean sharp graphic silhouettes inspired by simple cel-animated impact design. Main colour vivid purple, small pale yellow-lime inner accent, a little off-white at the brightest initial flash. NO outlines around the atlas, NO grid lines, NO text, NO numbers, NO labels, NO shadows on a background, NO checkerboard, NO scenery. Truly transparent alpha background. Perfectly uniform equal-sized rectangular cells, row-major chronological animation, aligned centre and identical camera/view/scale throughout. Each effect completely contained within its cell with 12% padding. Flat clean two-tone opaque shapes, purposeful asymmetry, pointed wedges and concave curves; no glow haze, no excessive detail or confetti. Animation must visibly change shape frame by frame: fast initial expansion, brief strong silhouette, break apart and fade into very sparse fragments. Final cell almost empty. This is a usable texture atlas, not a presentation board. Canvas aspect ratio 4:3, EXACTLY 4 columns by 3 rows, 12 frames. Expanding broken elliptical impact ring, three strong curved tapering purple segments with sharp triangular tips and large empty negative space at centre. Starts compact, opens rapidly, expands, breaks into three detached fading arcs. One or two tiny yellow-lime accent shards, no filled central explosion."
+    },
+    {
+      "name": "electric",
+      "prompt": "Use case: stylized-concept. Asset type: production-ready 2D game VFX animation sprite sheet for Unreal Engine. Original hand-drawn anime fighting-game effects, clean sharp graphic silhouettes inspired by simple cel-animated impact design. Main colour vivid purple, small pale yellow-lime inner accent, a little off-white at the brightest initial flash. NO outlines around the atlas, NO grid lines, NO text, NO numbers, NO labels, NO shadows on a background, NO checkerboard, NO scenery. Truly transparent alpha background. Perfectly uniform equal-sized rectangular cells, row-major chronological animation, aligned centre and identical camera/view/scale throughout. Each effect completely contained within its cell with 12% padding. Flat clean two-tone opaque shapes, purposeful asymmetry, pointed wedges and concave curves; no glow haze, no excessive detail or confetti. Animation must visibly change shape frame by frame: fast initial expansion, brief strong silhouette, break apart and fade into very sparse fragments. Final cell almost empty. This is a usable texture atlas, not a presentation board. Wide canvas aspect ratio 2:1, EXACTLY 4 columns by 2 rows, 8 frames. A compact sharply angular jagged lightning discharge, 2 or 3 interlocking zigzag strokes and sharp four-point spark intersections. Purple secondary strokes with yellow-lime main zigzag. First tiny jag, second and third frame snap to peak branching shapes; later break into short disconnected pointed strokes and vanish. Every frame newly drawn with purposeful shape change, no round tubes."
+    },
+    {
+      "name": "ground",
+      "prompt": "Use case: stylized-concept. Asset type: production-ready 2D game VFX animation sprite sheet for Unreal Engine. Original hand-drawn anime fighting-game effects, clean sharp graphic silhouettes inspired by simple cel-animated impact design. Main colour vivid purple, small pale yellow-lime inner accent, a little off-white at the brightest initial flash. NO outlines around the atlas, NO grid lines, NO text, NO numbers, NO labels, NO shadows on a background, NO checkerboard, NO scenery. Truly transparent alpha background. Perfectly uniform equal-sized rectangular cells, row-major chronological animation, aligned centre and identical camera/view/scale throughout. Each effect completely contained within its cell with 12% padding. Flat clean two-tone opaque shapes, purposeful asymmetry, pointed wedges and concave curves; no glow haze, no excessive detail or confetti. Animation must visibly change shape frame by frame: fast initial expansion, brief strong silhouette, break apart and fade into very sparse fragments. Final cell almost empty. This is a usable texture atlas, not a presentation board. Wide canvas aspect ratio 2:1, EXACTLY 4 columns by 2 rows, 8 frames. Flat directional ground impact splash seen from directly above, moving left-to-right. Three irregular sharp purple and pale-lime wedge-shaped streaks spread from a common left anchor toward the right, each different length and width, clean pointed tips and torn negative-space holes. Starts small at left, rapidly fans out right, splits apart at tips, erodes until tiny fragments. No circular discs, no smoke."
+    },
+    {
+      "name": "smoke",
+      "prompt": "Use case: stylized-concept. Asset type: production-ready 2D game VFX animation sprite sheet for Unreal Engine. Original hand-drawn anime fighting-game effects, clean sharp graphic silhouettes inspired by simple cel-animated impact design. Main colour vivid purple, small pale yellow-lime inner accent, a little off-white at the brightest initial flash. NO outlines around the atlas, NO grid lines, NO text, NO numbers, NO labels, NO shadows on a background, NO checkerboard, NO scenery. Truly transparent alpha background. Perfectly uniform equal-sized rectangular cells, row-major chronological animation, aligned centre and identical camera/view/scale throughout. Each effect completely contained within its cell with 12% padding. Flat clean two-tone opaque shapes, purposeful asymmetry, pointed wedges and concave curves; no glow haze, no excessive detail or confetti. Animation must visibly change shape frame by frame: fast initial expansion, brief strong silhouette, break apart and fade into very sparse fragments. Final cell almost empty. This is a usable texture atlas, not a presentation board. Canvas aspect ratio 4:3, EXACTLY 4 columns by 3 rows, 12 frames. A restrained cel-animation impact dust puff in neutral cool grey and ivory, only three main angular rounded lobes. Starts small and compact at bottom-centre, billows outward and upward, develops empty torn holes, separates into three tapered wisps and dissipates. Clean simple cel shading with one shadow tone, no photoreal haze, no purple or yellow in this dust asset."
+    }
+  ],
+  "source_files": [
+    {
+      "name": "impact",
+      "source": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-03a1f15a-9e96-4e78-bd17-82a99bff8a9b.png"
+    },
+    {
+      "name": "shock",
+      "source": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-4deb8f46-f3d5-4768-9cef-6499120e505f.png"
+    },
+    {
+      "name": "electric",
+      "source": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-49a2b9f7-4e54-446f-b32d-3d26cdf5fe1d.png"
+    },
+    {
+      "name": "ground",
+      "source": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-6d13630c-99ed-4432-94d2-7815bdf1579b.png"
+    },
+    {
+      "name": "smoke",
+      "source": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-0a1fc478-abb6-42fd-a626-1c5ecedead46.png"
+    }
+  ]
+}

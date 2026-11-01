@@ -1,0 +1,1165 @@
+{
+  "meshes": [
+    {
+      "name": "Body",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_upper_body.005",
+        "EX_Toon_EX_Portable_Material_lower_body.004",
+        "EX_Toon_Metal_EX_Toon_EX_Portable_Material_upper_body.005",
+        "EX_Toon_Metal_EX_Toon_EX_Portable_Material_lower_body.004",
+        "EX_Toon_V7_Leather_upper",
+        "EX_Toon_V7_Leather_lower",
+        "EX_Toon_V7_Fabric_upper",
+        "EX_Toon_V7_Leather_lower_Clean",
+        "EX_Toon_V7_Metal_lower_Clean",
+        "EX_Toon_V8_Hardware_upper",
+        "EX_Toon_Brooch_Silver",
+        "EX_Toon_Brooch_Gem",
+        "EX_V9_OutfitSilver",
+        "EX_V9_OutfitGem",
+        "EX_V9_JacketHem_Leather",
+        "EX_V9_WaistSkin",
+        "EX_V9_FlowerTails",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "Hair_TripoOriginal",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_hair.003",
+        "EX_Toon_Brooch_Silver",
+        "EX_Toon_Brooch_Gem",
+        "EX_Outline_Hair_Soft"
+      ],
+      "uv": [
+        "속성"
+      ]
+    },
+    {
+      "name": "Head",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_head.005",
+        "EX_Toon_EX_Portable_EX_Teeth_Upper",
+        "EX_Toon_EX_Portable_EX_Teeth_Lower",
+        "EX_Toon_EX_Portable_EX_Tongue",
+        "EX_Toon_EX_Portable_EX_Mouth_Cavity",
+        "EX_Toon_EX_Portable_EX_Scalp_Root",
+        "EX_Toon_EX_Portable_EX_Iris",
+        "EX_Toon_Metal_EX_Toon_EX_Portable_Material_head.005",
+        "EX_Outline_Face_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "NeckBridge",
+      "materials": [
+        "EX_Toon_NeckFaceMatched.001",
+        "EX_Toon_EX_Portable_HighCollar_base_color.003",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "Spring_02_skirt_panels",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_lower_body.004",
+        "EX_Toon_V7_Fabric_lower",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source",
+        "EX_ClothControl"
+      ]
+    },
+    {
+      "name": "Spring_03_draped_sleeve",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_upper_body.005",
+        "EX_Toon_V7_Fabric_upper",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source",
+        "EX_ClothControl"
+      ]
+    },
+    {
+      "name": "Spring_04_sleeve_straps",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_upper_body.005",
+        "EX_Toon_V7_Leather_upper",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source",
+        "EX_ClothControl"
+      ]
+    },
+    {
+      "name": "Spring_05_shoulder_strap",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_upper_body.005",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "Spring_06_shoulder_tassel",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_upper_body.005",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "Spring_07_front_tassel_a",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_lower_body.004",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "Spring_08_front_tassel_b",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_lower_body.004",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "Spring_09_back_tassel",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_lower_body.004",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "Spring_10_chest_tassels",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_upper_body.005",
+        "EX_V9_OrnamentRibbon",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    },
+    {
+      "name": "Spring_11_thigh_chain",
+      "materials": [
+        "EX_Toon_EX_Portable_Material_lower_body.004",
+        "EX_Toon_Metal_EX_Toon_EX_Portable_Material_lower_body.004",
+        "EX_Toon_V7_Leather_lower_Clean",
+        "EX_Toon_V7_Metal_lower_Clean",
+        "EX_Outline_Body_Soft"
+      ],
+      "uv": [
+        "UVMap",
+        "UV_Source"
+      ]
+    }
+  ],
+  "materials": {
+    "EX_Toon_EX_Portable_Material_upper_body.005": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V8_upper_BaseColor"
+        },
+        {
+          "node": "Surface mask: skin / leather / metal",
+          "image": "EX_V8_upper_SurfaceMask"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_upper_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_EX_Portable_Material_lower_body.004": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V8_lower_BaseColor"
+        },
+        {
+          "node": "Surface mask: skin / leather / metal",
+          "image": "EX_V8_lower_SurfaceMask"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_lower_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_Metal_EX_Toon_EX_Portable_Material_upper_body.005": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_Waist_upper_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_upper_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_Metal_EX_Toon_EX_Portable_Material_lower_body.004": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_Waist_lower_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_lower_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_V7_Leather_upper": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V8_upper_BaseColor"
+        },
+        {
+          "node": "Surface mask: skin / leather / metal",
+          "image": "EX_V8_upper_SurfaceMask"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_upper_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_V7_Leather_lower": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V8_lower_BaseColor"
+        },
+        {
+          "node": "Surface mask: skin / leather / metal",
+          "image": "EX_V8_lower_SurfaceMask"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_lower_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_V7_Fabric_upper": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V8_upper_BaseColor"
+        },
+        {
+          "node": "Surface mask: skin / leather / metal",
+          "image": "EX_V8_upper_SurfaceMask"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_upper_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_V7_Leather_lower_Clean": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_Waist_lower_BaseColor"
+        },
+        {
+          "node": "Surface mask: skin / leather / metal",
+          "image": "EX_V7_Waist_lower_SurfaceMask"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_lower_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_V7_Metal_lower_Clean": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_Waist_lower_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_lower_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_V8_Hardware_upper": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_Waist_upper_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_upper_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_Toon_Brooch_Silver": {
+      "images": [],
+      "colors": [
+        {
+          "label": "색상 램프",
+          "colors": [
+            [
+              0.0,
+              [
+                0.18000000715255737,
+                0.20000000298023224,
+                0.23999999463558197,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                0.5799999833106995,
+                0.6000000238418579,
+                0.6399999856948853,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_Brooch_Gem": {
+      "images": [],
+      "colors": [
+        {
+          "label": "색상 램프",
+          "colors": [
+            [
+              0.0,
+              [
+                0.07000000029802322,
+                0.0010000000474974513,
+                0.003000000026077032,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                0.47999998927116394,
+                0.004000000189989805,
+                0.012000000104308128,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_V9_OutfitSilver": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V3_hair_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_hair_AO"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.3199999928474426,
+                0.3400000035762787,
+                0.36000001430511475,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.6800000071525574,
+                0.699999988079071,
+                0.7200000286102295,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_V9_OutfitGem": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V3_hair_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_hair_AO"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.5199999809265137,
+                0.5099999904632568,
+                0.5199999809265137,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.800000011920929,
+                0.7900000214576721,
+                0.800000011920929,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_V9_JacketHem_Leather": {
+      "images": [],
+      "colors": [
+        {
+          "label": "색상 램프",
+          "colors": [
+            [
+              0.0,
+              [
+                0.00800000037997961,
+                0.008999999612569809,
+                0.012000000104308128,
+                1.0
+              ]
+            ],
+            [
+              0.800000011920929,
+              [
+                0.019999999552965164,
+                0.02199999988079071,
+                0.026000000536441803,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_V9_WaistSkin": {
+      "images": [
+        {
+          "node": "Same face skin sample",
+          "image": "head_textured_basecolor.005"
+        }
+      ],
+      "colors": [
+        {
+          "label": "색상 램프",
+          "colors": [
+            [
+              0.0,
+              [
+                0.8299999833106995,
+                0.699999988079071,
+                0.6399999856948853,
+                1.0
+              ]
+            ],
+            [
+              0.8199999928474426,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_V9_FlowerTails": {
+      "images": [],
+      "colors": [
+        {
+          "label": "색상 램프",
+          "colors": [
+            [
+              0.0,
+              [
+                0.5600000023841858,
+                0.5600000023841858,
+                0.5699999928474426,
+                1.0
+              ]
+            ],
+            [
+              0.75,
+              [
+                0.8399999737739563,
+                0.8199999928474426,
+                0.7699999809265137,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Outline_Body_Soft": {
+      "images": [],
+      "colors": []
+    },
+    "EX_Toon_EX_Portable_Material_hair.003": {
+      "images": [],
+      "colors": [
+        {
+          "label": "색상 램프",
+          "colors": [
+            [
+              0.0,
+              [
+                0.3400000035762787,
+                0.3499999940395355,
+                0.4000000059604645,
+                1.0
+              ]
+            ],
+            [
+              0.23999999463558197,
+              [
+                0.47999998927116394,
+                0.49000000953674316,
+                0.550000011920929,
+                1.0
+              ]
+            ],
+            [
+              0.4399999976158142,
+              [
+                0.6700000166893005,
+                0.6800000071525574,
+                0.7200000286102295,
+                1.0
+              ]
+            ],
+            [
+              0.6800000071525574,
+              [
+                0.7699999809265137,
+                0.7799999713897705,
+                0.8100000023841858,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Outline_Hair_Soft": {
+      "images": [],
+      "colors": []
+    },
+    "EX_Toon_EX_Portable_Material_head.005": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_head_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_head_AO"
+        },
+        {
+          "node": "Face shadow signed-distance control",
+          "image": "EX_head_ShadowControl"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.7900000214576721,
+                0.7200000286102295,
+                0.6800000071525574,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.9399999976158142,
+                0.8999999761581421,
+                0.8700000047683716,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_EX_Portable_EX_Teeth_Upper": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_head_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_head_AO"
+        },
+        {
+          "node": "Face shadow signed-distance control",
+          "image": "EX_head_ShadowControl"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.5400000214576721,
+                0.5099999904632568,
+                0.5,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.8199999928474426,
+                0.800000011920929,
+                0.7900000214576721,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_EX_Portable_EX_Teeth_Lower": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_head_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_head_AO"
+        },
+        {
+          "node": "Face shadow signed-distance control",
+          "image": "EX_head_ShadowControl"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.5400000214576721,
+                0.5099999904632568,
+                0.5,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.8199999928474426,
+                0.800000011920929,
+                0.7900000214576721,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_EX_Portable_EX_Tongue": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_head_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_head_AO"
+        },
+        {
+          "node": "Face shadow signed-distance control",
+          "image": "EX_head_ShadowControl"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.5400000214576721,
+                0.5099999904632568,
+                0.5,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.8199999928474426,
+                0.800000011920929,
+                0.7900000214576721,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_EX_Portable_EX_Mouth_Cavity": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_head_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_head_AO"
+        },
+        {
+          "node": "Face shadow signed-distance control",
+          "image": "EX_head_ShadowControl"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.5400000214576721,
+                0.5099999904632568,
+                0.5,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.8199999928474426,
+                0.800000011920929,
+                0.7900000214576721,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_EX_Portable_EX_Scalp_Root": {
+      "images": [],
+      "colors": []
+    },
+    "EX_Toon_EX_Portable_EX_Iris": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_head_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_head_AO"
+        },
+        {
+          "node": "Face shadow signed-distance control",
+          "image": "EX_head_ShadowControl"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.5400000214576721,
+                0.5099999904632568,
+                0.5,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.8199999928474426,
+                0.800000011920929,
+                0.7900000214576721,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_Metal_EX_Toon_EX_Portable_Material_head.005": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V7_head_BaseColor"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_head_AO"
+        },
+        {
+          "node": "Face shadow signed-distance control",
+          "image": "EX_head_ShadowControl"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.7900000214576721,
+                0.7200000286102295,
+                0.6800000071525574,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.9399999976158142,
+                0.8999999761581421,
+                0.8700000047683716,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Outline_Face_Soft": {
+      "images": [],
+      "colors": []
+    },
+    "EX_Toon_NeckFaceMatched.001": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V3_NeckMatched_BaseColor.003"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_V3_NeckMatched_AO.003"
+        },
+        {
+          "node": "Face shadow signed-distance control",
+          "image": "EX_V3_NeckMatched_ShadowControl.003"
+        },
+        {
+          "node": "Jaw normal in head right/up/forward coordinates",
+          "image": "EX_V3_NeckMatched_FaceNormal.003"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.7900000214576721,
+                0.7200000286102295,
+                0.6800000071525574,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.9399999976158142,
+                0.8999999761581421,
+                0.8700000047683716,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_EX_Portable_HighCollar_base_color.003": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V3_NeckMatched_BaseColor.003"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_neck_AO"
+        }
+      ],
+      "colors": [
+        {
+          "label": "Cel bands",
+          "colors": [
+            [
+              0.0,
+              [
+                0.5400000214576721,
+                0.5099999904632568,
+                0.5,
+                1.0
+              ]
+            ],
+            [
+              0.41999998688697815,
+              [
+                0.8199999928474426,
+                0.800000011920929,
+                0.7900000214576721,
+                1.0
+              ]
+            ],
+            [
+              0.6499999761581421,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "EX_Toon_V7_Fabric_lower": {
+      "images": [
+        {
+          "node": "Baked albedo — no scene lighting",
+          "image": "EX_V8_lower_BaseColor"
+        },
+        {
+          "node": "Surface mask: skin / leather / metal",
+          "image": "EX_V8_lower_SurfaceMask"
+        },
+        {
+          "node": "Separate occlusion",
+          "image": "EX_lower_AO"
+        }
+      ],
+      "colors": []
+    },
+    "EX_V9_OrnamentRibbon": {
+      "images": [],
+      "colors": [
+        {
+          "label": "색상 램프",
+          "colors": [
+            [
+              0.0,
+              [
+                0.75,
+                0.7599999904632568,
+                0.7900000214576721,
+                1.0
+              ]
+            ],
+            [
+              0.75,
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "textures": {
+    "EX_V8_lower_SurfaceMask": "EX_V8_lower_SurfaceMask.png",
+    "EX_upper_AO": "EX_upper_AO.png",
+    "head_textured_basecolor.005": "head_textured_basecolor_005.png",
+    "EX_V3_NeckMatched_AO.003": "EX_V3_NeckMatched_AO_003.png",
+    "EX_V8_upper_BaseColor": "EX_V8_upper_BaseColor.png",
+    "EX_V7_Waist_lower_BaseColor": "EX_V7_Waist_lower_BaseColor.png",
+    "EX_V3_hair_BaseColor": "EX_V3_hair_BaseColor.png",
+    "EX_head_AO": "EX_head_AO.png",
+    "EX_V7_Waist_lower_SurfaceMask": "EX_V7_Waist_lower_SurfaceMask.png",
+    "EX_head_ShadowControl": "EX_head_ShadowControl.png",
+    "EX_V8_upper_SurfaceMask": "EX_V8_upper_SurfaceMask.png",
+    "EX_lower_AO": "EX_lower_AO.png",
+    "EX_V7_Waist_upper_BaseColor": "EX_V7_Waist_upper_BaseColor.png",
+    "EX_V3_NeckMatched_ShadowControl.003": "EX_V3_NeckMatched_ShadowControl_003.png",
+    "EX_V8_lower_BaseColor": "EX_V8_lower_BaseColor.png",
+    "EX_V3_NeckMatched_FaceNormal.003": "EX_V3_NeckMatched_FaceNormal_003.png",
+    "EX_neck_AO": "EX_neck_AO.png",
+    "EX_hair_AO": "EX_hair_AO.png",
+    "EX_V7_head_BaseColor": "EX_V7_head_BaseColor.png",
+    "EX_V3_NeckMatched_BaseColor.003": "EX_V3_NeckMatched_BaseColor_003.png"
+  }
+}

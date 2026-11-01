@@ -1,0 +1,215 @@
+Exorcist secondary motion and daylight materials — 2026-11-02
+
+Reference and scope
+Kuro Games interview / official screenshots:
+https://www.unrealengine.com/developer-interviews/exploring-the-post-apocalyptic-charm-of-asg-open-worlds-in-wuthering-waves
+Reference footage (selected exploration/cutscene sections, not the entire video):
+https://www.youtube.com/watch?v=8ok2pk0DA3s
+This project uses an approximation inspired by the references, not Kuro's proprietary renderer or exact movement constants.
+
+Original Blender findings
+Scene gravity: -9.81 m/s². The skirt, draped sleeve and sleeve straps have Blender Cloth modifiers.
+The previous FBX exporter removed those modifiers and retained temporary arm/leg attachment weights.
+The source .blend is preserved. The Dynamics FBX rebuilds cloth weights on existing bones; it does not change the animation skeleton.
+
+Implementation
+M_EX_SurfaceDetail: painted colours retained, scene-lit surfaces, restrained emissive skin fill,
+separate cloth/leather/metal roughness, filtered procedural weave normal and roughness detail.
+ABP_EX_SecondaryMotion: post-process input pose followed by five KawaiiPhysics groups.
+Skirt, sleeve, accessories, hair chains and individual hair locks use different damping/stiffness.
+Limb capsules follow animated joints; skirt columns have horizontal constraints and extra collision samples.
+Gravity is -980 cm/s². Fixed substepping at 60 Hz, max 4 steps; warm start and teleport reset.
+Secondary simulation stops past LOD 2; existing four morph-aware mesh LODs are retained.
+This is bone-based cloth/secondary motion, not full per-vertex Chaos cloth and not a Blender cache.
+Collision proxies cannot mathematically guarantee that every cloth triangle remains outside the body in every possible pose.
+
+Dependency
+KawaiiPhysics v1.21.0, MIT, pafuhana1213.
+https://github.com/pafuhana1213/KawaiiPhysics
+Pinned source commit: 80b0016685a8ec1172c7c5a3878961352e42d587
+License retained in Plugins/KawaiiPhysics/LICENSE.
+
+Reproduction (one operation at a time; wait for each DONE marker)
+1. Blender background: original .blend + export_exorcist_dynamics.py.
+2. UE: import_exorcist_dynamics.py — backup mesh is /Game/ExorcistV10/BeforeDynamics/SK_EX_Optimized.
+3. UE: author_exorcist_dynamics.py.
+4. UE: author_exorcist_daylight.py.
+5. PIE: verify_exorcist_dynamics.py and combat regression scripts.
+Never run asset-writing Slate callbacks concurrently.
+
+Movement, camera and expressions
+Jog 480 cm/s, held-Shift sprint 800 cm/s. Acceleration 3200; braking 2800.
+540 cm spring arm / 78 degree base FOV, ramp to 81 in grounded sprint only.
+4 degree mesh lean blends in/out with sprint; attacks never redirect the camera.
+CombatAuthoringLibrary.RebuildBlendSpace explicitly rebuilds the interpolation data
+after Python replaces sample_data; without this step an old cached walking sample
+can be selected even with the correct 800 cm/s input and new sprint rows.
+Original 2.5-second MM_Idle motion and stance restored. A_EX_GroundedIdle preserves its
+hips, spine, arms and head tracks, correcting only leg/ankle contact for the actual boots.
+The rejected 22-second A_EX_CombatIdle is retained as a backup but is not bound at runtime.
+DefaultSlot always updates its source pose; movement landing fades the takeoff overlay in 0.10 s.
+Stationary landing is cancelled smoothly if the player begins moving.
+Repeated attacks retain outgoing motion and use Hermite crossfades (0.10 s light / 0.16 s heavy).
+After six idle seconds: relaxed, sideways glance and soft smile cycles.
+Blink intervals vary. Attack preparation, effort and recovery drive brow/mouth morphs.
+Existing 28 facial morph targets retained. Face updates at 30 Hz; locomotion stays smooth.
+
+Clean impact and silhouette highlight
+Official Arc System Works Academy effects lesson, inspected hit-effect production section:
+https://www.youtube.com/watch?v=iJwbiIa7D3E (3:14 imageboard, 3:29 materials, 4:02 particle motion).
+Independent UE recreation with hand-drawn sheets / montages:
+https://lucasroedel.artstation.com/projects/lDXzOG
+Applied ideas: sparse contact flare, directional shards, delayed secondary motion;
+large secondary rings placed behind contact, modest foreground density.
+Ten image_gen-created RGBA flipbooks, 8–16 frames, built at 256 pixels per frame.
+Source images and exact prompts: GeneratedSheets/ and GeneratedSheets/generation-prompts.json.
+The earlier code-authored CleanSheets are obsolete and are no longer imported.
+Basic attack: one contact sheet, one smaller delayed broken ring and two spatial shards;
+no ground paint, smoke or electricity. Separate jab/cross/rising impact shapes are selected
+by attack, with additional branching lightning and directional ground-fracture variants.
+Heavy and ultimate add selected ring/smoke/ground elements, not all parts every time.
+Old source images remain for reversibility, but runtime texture references use CleanTextures.
+M_EX_Outline uses a 1.2 render-pixel depth-tested inner player edge (stencil 11).
+It runs Before DOF, before TSR, with eight coverage samples and surface-tinted ink.
+Character-only illumination bands are estimated from scene colour / GBuffer albedo;
+this is a post-process approximation, not a custom anime lighting model.
+This replaces the after-tonemapping outer line that produced jittered dots and white halos.
+Temporal pipeline reference: https://dev.epicgames.com/documentation/unreal-engine/post-process-materials-in-unreal-engine
+M_CC_HighlightOnly uses character/effect masks. The filled screen-sized star was removed.
+Black/white fades out by 95 ms; restrained colour emphasis ends by 320 ms. No RGB inversion.
+Ultimate contact size multiplier reduced from 1.75 to 1.30; attack motion is unchanged.
+Use refine_toon_and_highlight.py to update these existing graphs in place. The older
+author_exorcist_outline.py / author_highlight_only.py are historical bootstrap scripts.
+Highlight parameter NegativeAmount is retained as a legacy envelope name only.
+Custom-depth stencil 13 marks actual impact geometry. Camera input remains enabled.
+Resource generation: built-in image_gen; import saved RGBA sources with author_clean_vfx.py
+and import_vfx_variations.py. Additional exact prompts: GeneratedSheets/variation-prompts.json.
+Do not run make_clean_vfx.py to replace the selected generated artwork.
+Other author scripts: author_exorcist_idle.py, author_exorcist_outline.py, author_highlight_only.py.
+Verification scripts: verify_exorcist_presentation.py, verify_combat_alignment.py,
+verify_free_camera.py, verify_combat_highlights.py. Run on fresh PIE sessions.
+capture_highlight_inspection.py temporarily holds an actual hit for visual inspection;
+its screenshot is a held diagnostic pose, not a timing/performance measurement.
+
+Historical validation before the original-standing restoration (not current acceptance)
+Development Editor build: passed. Python authoring/verification script syntax: passed.
+Presentation/face/movement checks 14/14; contact alignment 38/38; free camera 20/20;
+combo/rising highlight checks 5/5. Sprint input + footfall checks 2/2 (12 foot plants/4 s).
+Secondary-motion checks 9/9 without screenshot stalls. The cloth bone-proxy clearance
+minimum was -2.47 cm against the conservative 9.2 cm proxy envelope (tolerance -2.5 cm).
+This is not a per-triangle intersection test; extreme poses still require visual review.
+Material editor statistics: SurfaceDetail 284 pixel instructions / 2 texture samples;
+Outline 91 / 7; Highlight 148 / 7 (editor-reported statistics, not runtime GPU costs).
+No packaged-build GPU timing was measured.
+Generated-sheet import verified against all ten RGBA source files; texture build dimensions
+are 1024x1024, 1024x768 or 1024x512 with the existing masked animation material.
+Post-import contact alignment 38/38 and combo/rising highlights 5/5 passed again.
+Visual inspection: basic punch, kick, held black/white highlight, close and orbit outline views.
+
+Continuity repair audit (2026-11-02)
+Before: after a sprinting jump, a landing montage overlaid the run for about 1.1 seconds.
+After: single/double jump tests returned to locomotion within 0.03 seconds of landing;
+foot-height samples confirmed a running stride, rather than checking velocity alone (5/5).
+Same-button repeat tests: 15 light and 9 heavy attacks; transition joint deltas below 11 cm
+at sampled handoffs, automatic return to locomotion, light clip variation (7/7).
+These numerical checks do not establish artistic parity with the reference games.
+Build: continuity-build.log, Development Editor succeeded.
+Latest contact/variant/highlight regression: 40/40. All ten generated sheet names were
+observed on visible active effect materials during this test.
+The previous 18/18 idle result tested the rejected choreography and is superseded.
+Current presentation test checks original upper-body tracks against MM_Idle, actual rendered
+shoe heel/toe vertices, continuous idle motion and the existing facial expression cycle.
+Grounding reproduction: ground_original_idle.py + idle-sole-calibration.json.
+Cloth idle stability: the earlier damping-only attempt was insufficient (later standing
+probe still measured a 2.43 cm frame step). Garment solver alpha now blends to zero
+over .286 seconds at rest and restores over .125 seconds for movement/attack/airborne.
+Only skirt and Spring garment/accessory nodes are affected; hair/locks retain physics.
+Original authored idle animation remains active. Updates run before mesh evaluation
+and only when the weight changes. Original moving skirt collision dimensions
+remain: 9.4 cm thigh capsules / 2.8 cm particle radius. Garment wind is disabled.
+Sleeve/accessory damping increased. The short right-thigh chain is excluded from the
+shared accessory solver and follows its original upper_leg_R skinning/attachment.
+The early reduced-radius experiment was rejected because jump clearance regressed.
+This preserves movement simulation; it does not guarantee every triangle is intersection-free.
+
+Arcane reference revision (2026-11-02)
+Reference: https://youtu.be/Qn-esmFMt68 . Sampled key scenes, not uninterrupted viewing.
+User selection: Vi-like ordinary punch; Jayce-like ultimate energy discharge.
+Observed contact references: 01:25 warm directional impact sparks, 01:50.8-01:51.0
+cyan/navy/white body lighting, 02:00 white-hot blue energy with branching arcs.
+Three new original image_gen sheets, each 16 frames (4x4), preserved RGBA:
+GeneratedSheets/T_Generated_arcane_punch.png, T_Generated_arcane_ultimate.png,
+T_Generated_arcane_lightning.png. Exact prompts/mode: arcane-generation-prompts.json.
+Import with import_arcane_vfx.py on editor Slate tick. Runtime textures built at 1024 square.
+Punch is assigned to jab/flurry; other existing attack shape variants are retained.
+Ultimate core and delayed hollow corona use separate generated sheets, original colors,
+and contact-space placement. No code-drawn explosion image replaces the generated art.
+The highlight now re-lights visible character stencils in cyan/navy/white; it does not
+invert RGB or draw a filled screen star. It approximates the reference, not anatomical X-ray.
+Ultimate contact point light is blue, decays over .46 seconds; no extra shadow-casting light.
+Original ultimate motion and free camera are preserved.
+Grounded original idle presentation checks passed 18/18; upper-body source tracks retained.
+The earlier .16 cm standing probe was not consistently reproduced; it is superseded
+by verify_resting_garments.py, which tests rest after both sprint and attack.
+Moving cloth clearance remains a separate unresolved conservative proxy check: best restored
+configuration still exceeded the -2.5 cm tolerance during jumping. Do not claim all cloth
+intersection cases pass. Larger 10.6 cm thigh-collider experiment was rejected and restored
+to 9.4 cm, with original moving SyncBones (.30,.50,.55).
+
+Final resting-garment verification: 8/8 passed (resting-garment-verification.json).
+At initial idle, after sprint, and after attack, garment alpha reached zero and maximum
+skirt-tip step relative to hips was below 4e-13 cm (numerical noise). Sprint and attack
+restored alpha to one. This checks collision chatter, not every rendered triangle.
+Build: resting-garment-blend-build.log succeeded. New generated VFX contact regression:
+combat-alignment-arcane.json 40/40, including all three new sheets, seven-hit charge,
+contact/limb anchors, free camera and daylight restoration.
+Latest dynamics regression: 9/10 passed. Bone/capsule proxy minimum -9.12 cm now
+includes authored rest positions while garment physics is blended out (idle/settle),
+so it is not evidence of 9 cm rendered penetration. It remains a failed conservative
+clearance check, not a pass; rendered garment intersections in extreme poses are unresolved.
+
+Fullscreen highlight correction requested by user:
+The weak scene tint was rejected. Reference frame 01:50.8 shows a strong navy/cyan/white
+graphic transformation across the whole view; 02:00 shows white-hot blue energy lighting.
+M_CC_HighlightOnly now replaces the full scene palette (including sky/floor) for .16 seconds,
+blends out by .24 seconds, adds a cyan light wash through .40 seconds, and plays the original
+generated corona sheet across the view. Character masking preserves readable bodies.
+No opaque star card and no RGB inverse. Camera input remains live. The same generated corona
+is reused for this presentation layer; no code-drawn replacement image is introduced.
+Fullscreen revision validation: combat-alignment-fullscreen.json 40/40;
+fresh-session combo/rising highlight checks 5/5. Held diagnostic screenshot inspected:
+highlight-held-inspection.png. Whole-view navy transformation, cyan silhouette separation,
+generated screen corona and world contact core visible. This still approximates the film;
+no cinematic camera cut or anatomical X-ray model is implemented.
+
+LATEST USER OVERRIDE: ultimate VFX removed (2026-11-02).
+Q now suppresses Charge, Rush, Trail, Recovery and UltimateImpact visual cues,
+charge/contact point lighting and all Q-triggered fullscreen highlights (including
+combo threshold crossings). Motion, hit detection, damage, charge and audio remain.
+Ordinary attacks and their existing combo/rising highlights are unchanged.
+The fullscreen reference revision above is retained history, not current Q behavior.
+
+LATEST CORRECTION, superseding the removal above:
+User clarified: keep all world-space ultimate VFX; only simplify the FULLSCREEN effect
+to color inversion. Q charge/rush/trail/contact/recovery and point lights are restored.
+Highlight shader now only blends Scene with 1-saturate(Scene) during the short impact
+window. No fullscreen corona texture, palette replacement, rays, or blue wash is drawn.
+Wheel zoom range changed from 300-680 cm to 150-1100 cm, 40 cm per step; combat remains
+independent of wheel input.
+Garment fix adds an opt-in FinalBodyCollisionIterations property to the local Kawaii
+plugin, default 0 (upstream behavior unchanged). Only skirt is configured to 6.
+The final pass projects real simulated joints outside body sphere/capsule limits after
+length restoration, shifts their Verlet history to avoid injecting energy, then updates
+collision subdivision samples so output rotations follow the corrected endpoints.
+This favors separation over exact segment length; inspect rendered fabric for stretching.
+
+Latest user override: remove fullscreen inversion too. Camera no longer creates or attaches
+M_CC_HighlightOnly; material is also a Scene.rgb pass-through. World-space Q VFX retained.
+Garment final projection now also keeps each panel outside its original root radial plane,
+computed from the animated waist root cluster, before each body collision iteration.
+This is positional cloth constraint grouping, not object merging or mesh welding.
+Verification: build succeeded; combat 42/42, combo/rising no-flash 5/5, zoom 4/4,
+resting garments 8/8. Camera has only M_EX_Outline bound. Running front/side captures reviewed.
+Dynamics 11/12: moving body clearance +2.62cm, original-side constraint within 0.17cm;
+whole-sequence bone proxy clearance fails (-9.16cm) in authored/blended poses. This proxy
+is not the cloth surface: no claim of fully collision-free rendered cloth in every pose.

@@ -1,0 +1,31 @@
+{
+  "tool": "built-in image_gen",
+  "transparent_background": true,
+  "assets": [
+    {
+      "name": "jab_burst",
+      "prompt": "Create a production game VFX flipbook PNG with true transparent background. Clean flat hand-drawn anime fighting-game effects, purposeful asymmetrical angular pointed shapes and large negative spaces, sparse lime inner accent with purple body, tiny ivory initial core. No glow haze, no grain, no confetti, no text, no grid lines, no backdrop. Exactly 4 columns by 4 rows, row-major 16-frame chronological animation. Every equal square cell uses fixed camera and pivot with minimum 15% transparent padding. Animation: small ignition frames 1-2, strong expanding contact burst frames 3-5, split and outward travel frames 6-11, very sparse dissipating fragments frames 12-16. The silhouettes must change shape, not simply scale. Preserve empty margins between frames. Original isolated artwork, no characters. Compact punch hit with 4 broad spiky petals, diamond centre, explosive broken four-point silhouette, asymmetrical.",
+      "path": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-68668c1c-ed8f-4eb9-8223-1e8752d8067a.png"
+    },
+    {
+      "name": "cross_burst",
+      "prompt": "Create a production game VFX flipbook PNG with true transparent background. Clean flat hand-drawn anime fighting-game effects, purposeful asymmetrical angular pointed shapes and large negative spaces, sparse lime inner accent with purple body, tiny ivory initial core. No glow haze, no grain, no confetti, no text, no grid lines, no backdrop. Exactly 4 columns by 4 rows, row-major 16-frame chronological animation. Every equal square cell uses fixed camera and pivot with minimum 15% transparent padding. Animation: small ignition frames 1-2, strong expanding contact burst frames 3-5, split and outward travel frames 6-11, very sparse dissipating fragments frames 12-16. The silhouettes must change shape, not simply scale. Preserve empty margins between frames. Original isolated artwork, no characters. Directional horizontal punch detonation: sharp left contact point, 3 broad jagged wedges shooting toward the right, split tail fragments.",
+      "path": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-f84f9278-d143-44d6-b46a-fb8340822275.png"
+    },
+    {
+      "name": "rising_burst",
+      "prompt": "Create a production game VFX flipbook PNG with true transparent background. Clean flat hand-drawn anime fighting-game effects, purposeful asymmetrical angular pointed shapes and large negative spaces, sparse lime inner accent with purple body, tiny ivory initial core. No glow haze, no grain, no confetti, no text, no grid lines, no backdrop. Exactly 4 columns by 4 rows, row-major 16-frame chronological animation. Every equal square cell uses fixed camera and pivot with minimum 15% transparent padding. Animation: small ignition frames 1-2, strong expanding contact burst frames 3-5, split and outward travel frames 6-11, very sparse dissipating fragments frames 12-16. The silhouettes must change shape, not simply scale. Preserve empty margins between frames. Original isolated artwork, no characters. Upward uppercut contact detonation: low contact pivot and 3 long tapering forked flame spikes thrusting upward, small broken arc.",
+      "path": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-b015f6d7-ec07-4aca-87e6-93e4637a00c0.png"
+    },
+    {
+      "name": "lightning_fork",
+      "prompt": "Create a production game VFX flipbook PNG with true transparent background. Clean flat hand-drawn anime fighting-game effects, purposeful asymmetrical angular pointed shapes and large negative spaces, sparse lime inner accent with purple body, tiny ivory initial core. No glow haze, no grain, no confetti, no text, no grid lines, no backdrop. Exactly 4 columns by 4 rows, row-major 16-frame chronological animation. Every equal square cell uses fixed camera and pivot with minimum 15% transparent padding. Animation: small ignition frames 1-2, strong expanding contact burst frames 3-5, split and outward travel frames 6-11, very sparse dissipating fragments frames 12-16. The silhouettes must change shape, not simply scale. Preserve empty margins between frames. Original isolated artwork, no characters. Angular branching lightning discharge with 2 long angular forks and tiny intersection flares, broken chain lightning that branches outward then disintegrates. No round thundercloud.",
+      "path": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-4ccdf0f6-88ca-4744-aca9-abe71fa58374.png"
+    },
+    {
+      "name": "ground_fracture",
+      "prompt": "Create a production game VFX flipbook PNG with true transparent background. Clean flat hand-drawn anime fighting-game effects, purposeful asymmetrical angular pointed shapes and large negative spaces, sparse lime inner accent with purple body, tiny ivory initial core. No glow haze, no grain, no confetti, no text, no grid lines, no backdrop. Exactly 4 columns by 4 rows, row-major 16-frame chronological animation. Every equal square cell uses fixed camera and pivot with minimum 15% transparent padding. Animation: small ignition frames 1-2, strong expanding contact burst frames 3-5, split and outward travel frames 6-11, very sparse dissipating fragments frames 12-16. The silhouettes must change shape, not simply scale. Preserve empty margins between frames. Original isolated artwork, no characters. Top-down directional ground shock impact: wedge-shaped spreading cracked energy with 3 unequal jagged rays opening from left contact toward right. Crisp broad painted shapes with empty cuts, never a filled circular disc.",
+      "path": "C:\\Users\\jooan\\.codex\\generated_images\\01a17375-96c7-7e50-9c18-1f22fc93299e\\exec-1032cef4-8a47-4862-805f-55384288750d.png"
+    }
+  ]
+}

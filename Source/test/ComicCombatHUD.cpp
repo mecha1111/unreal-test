@@ -12,6 +12,8 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "InputKeyEventArgs.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/PlayerCameraManager.h"
 #if WITH_EDITOR
 #include "Framework/Commands/InputBindingManager.h"
 #include "Framework/Commands/UICommandInfo.h"
@@ -198,7 +200,7 @@ void APlaygroundHUD::DrawCombatInterface(APlaygroundCharacter* Player)
     const float NameSize=Small?11.f:Medium?13.f:15.f,KeyWidth=Small?55.f:80.f;
     const float Bottom=Small?22.f:Safe,Base=H-Bottom-(3*Row+21);
     const TCHAR* Keys[]={TEXT("LMB"),TEXT("RMB"),TEXT("SHIFT"),TEXT("SPACE")};
-    const TCHAR* Names[]={TEXT("일반 공격"),TEXT("내려찍기"),TEXT("달리기"),TEXT("점프")};
+    const TCHAR* Names[]={TEXT("일반 공격"),TEXT("강공격"),TEXT("달리기"),TEXT("점프")};
     const bool Active[]={Player->bAttacking&&Player->GetAttackVariant()<3,Player->bAttacking&&Player->GetAttackVariant()==3,Player->bRunning,Player->GetCharacterMovement()->IsFalling()};
     for(int32 I=0;I<4;++I){const float HX=Safe+(Active[I]?4.f:0.f);Text(Keys[I],HX,Base+Row*I,KeySize,Active[I]?Cyan:Ivory,true);Text(Names[I],HX+KeyWidth,Base+Row*I+2,NameSize,Active[I]?Cyan:Ivory);}
 
@@ -310,7 +312,22 @@ bool ACombatPlayerController::InputKey(const FInputKeyEventArgs& Params)
     }
     if(UGameplayStatics::IsGamePaused(this))return true;
     if(bShowMouseCursor&&(Params.Key==EKeys::Mouse2D||Params.Key==EKeys::MouseX||Params.Key==EKeys::MouseY))return true;
+    // Raw relative mouse input is never gated by attack, montage or hit-stop state.
+    if(Params.Key==EKeys::MouseX){AddYawInput(Params.AmountDepressed*.12f);return true;}
+    if(Params.Key==EKeys::MouseY){AddPitchInput(-Params.AmountDepressed*.12f);return true;}
+    if(Pressed && !bShowMouseCursor && (Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown))
+    {
+        if(APawn* P=GetPawn())if(USpringArmComponent* Arm=P->FindComponentByClass<USpringArmComponent>())
+            Arm->TargetArmLength=FMath::Clamp(Arm->TargetArmLength+(Params.Key==EKeys::MouseScrollUp?-40.f:40.f),150.f,1100.f);
+        return true;
+    }
     return Super::InputKey(Params);
+}
+
+void ACombatPlayerController::InjectMouseDelta(float X,float Y)
+{
+    InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::MouseX,IE_Axis,X,1));
+    InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::MouseY,IE_Axis,Y,1));
 }
 
 #if WITH_EDITOR
@@ -319,6 +336,7 @@ namespace { TOptional<FInputChord> SavedStopChord; int32 ActiveHUDControllers=0;
 void ACombatPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+    if(PlayerCameraManager){PlayerCameraManager->ViewPitchMin=-65.f;PlayerCameraManager->ViewPitchMax=65.f;}
 #if WITH_EDITOR
     if(GetWorld()->WorldType==EWorldType::PIE && ActiveHUDControllers++==0)
     {

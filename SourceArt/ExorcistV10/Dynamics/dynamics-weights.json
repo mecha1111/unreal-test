@@ -1,0 +1,50 @@
+{
+  "Spring_02_skirt_panels": {
+    "vertices": 1093,
+    "groups": [
+      "skirt_5_1",
+      "skirt_6_1",
+      "skirt_5_2",
+      "skirt_6_2",
+      "skirt_4_1",
+      "skirt_4_2",
+      "hips",
+      "skirt_7_1",
+      "skirt_7_2",
+      "skirt_3_1",
+      "skirt_3_2",
+      "skirt_2_1",
+      "skirt_2_2",
+      "skirt_1_2",
+      "skirt_1_1",
+      "skirt_8_1",
+      "skirt_8_2"
+    ]
+  },
+  "Spring_03_draped_sleeve": {
+    "vertices": 636,
+    "groups": [
+      "Spring_03_draped_sleeve_chain1_1",
+      "Spring_03_draped_sleeve_chain1_2",
+      "Spring_03_draped_sleeve_chain2_1",
+      "Spring_03_draped_sleeve_chain2_2",
+      "upper_arm.L",
+      "Spring_03_draped_sleeve_chain3_1",
+      "lower_arm.L",
+      "Spring_03_draped_sleeve_chain3_2"
+    ]
+  },
+  "Spring_04_sleeve_straps": {
+    "vertices": 316,
+    "groups": [
+      "Spring_04_sleeve_straps_chain3_2",
+      "Spring_04_sleeve_straps_chain3_1",
+      "Spring_04_sleeve_straps_chain2_2",
+      "Spring_04_sleeve_straps_chain2_1",
+      "lower_arm.L",
+      "upper_arm.L",
+      "Spring_04_sleeve_straps_chain1_1",
+      "Spring_04_sleeve_straps_chain1_2"
+    ]
+  }
+}

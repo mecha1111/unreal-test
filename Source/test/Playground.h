@@ -22,6 +22,7 @@ class UTextRenderComponent;
 class UMaterialInstanceDynamic;
 class UAnimMontage;
 class UComicCombatPresentationComponent;
+class UExorcistFaceComponent;
 class UFontFace;
 class UTexture2D;
 struct FCompositeFont;
@@ -42,13 +43,16 @@ public:
     virtual void SetupPlayerInputComponent(UInputComponent* Input) override;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Controls") bool bRunning = false;
+    // Project tuning inspired by open-world action movement, not proprietary game values.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Controls|Movement", meta=(ClampMin="0")) float JogSpeed = 480.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Controls|Movement", meta=(ClampMin="0")) float SprintSpeed = 800.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") bool bAttacking = false;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") int32 AttackCount = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") int32 HitCount = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") float LastHitTime = -10.f;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Presentation") bool bStylizedPoseStep = true;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Presentation") float DisplayPoseFPS = 18.f;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Presentation") bool bStylizedPoseStep = false;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Presentation") float DisplayPoseFPS = 0.f;
 
     // Routes verification events through the real PlayerController + Enhanced Input mapping.
     UFUNCTION(BlueprintCallable, Category="Verification", meta=(DevelopmentOnly))
@@ -60,6 +64,8 @@ public:
 
     /** 클립 노티파이 전용. 진행 중인 공격에서 각 타격은 한 번만 판정한다. */
     void HandleCombatCue(int32 Cue, UAnimSequenceBase* SourceAnimation);
+    /** 본 갱신 이후 연출 컴포넌트가 호출하여 현재 포즈로 접촉 위치를 계산한다. */
+    void FlushPendingStrikes();
     /** 호환용 조회. 궁극기는 재사용 대기 없이 항상 0초를 반환한다. */
     UFUNCTION(BlueprintPure, Category="Combat")
     float GetUltimateCooldown() const;
@@ -77,6 +83,8 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") int32 CancelCount = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") int32 LightChain = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") FVector LastContactPoint = FVector::ZeroVector;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") FVector LastStrikePoint = FVector::ZeroVector;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") FName LastContactBone;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") int32 AttackPhase = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Combat") float AttackClipTime = 0.f;
 
@@ -97,7 +105,9 @@ private:
     UPROPERTY() TArray<TObjectPtr<UAnimSequence>> AttackAnimations;
     UPROPERTY() TArray<TObjectPtr<UAnimSequence>> MovementAnimations;
     UPROPERTY() TObjectPtr<UAnimMontage> ActiveMontage;
+    UPROPERTY() TObjectPtr<UAnimMontage> MovementMontage;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UComicCombatPresentationComponent> CombatPresentation;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UExorcistFaceComponent> ExorcistFace;
     float ChainBlendUntil = -1.f;
     bool bContinuousAttack = false;
     float LastAttackTime = -10.f;
@@ -122,6 +132,7 @@ private:
     int32 ActiveAttack = 0;
     bool bCanChain = false;
     bool bStrikeResolved = false;
+    TArray<int32> PendingStrikes;
     bool bAwaitingLanding = false;
     bool bRisePending = false;
     float LungeProgress = 0.f;
@@ -154,8 +165,8 @@ public:
     virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer) override;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Target") float Health = 100.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Target") int32 HitsReceived = 0;
-    /** 몸 표면의 접촉점을 반환한다. 타격 연출이 몸 안에 묻히지 않도록 여유 거리를 포함한다. */
-    FVector GetCombatContact(const FVector& AttackerLocation, int32 Variant) const;
+    /** 피격 반응 전 호출. 현재 공격 부위와 가까운 피직스 표면을 반환하며 실패 시 캡슐로 대체한다. */
+    FVector GetCombatContact(const FVector& StrikePoint, const FVector& AttackerLocation, FName& Bone) const;
 private:
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Body;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UCapsuleComponent> TargetCollision;
@@ -245,6 +256,8 @@ public:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     virtual bool InputKey(const FInputKeyEventArgs& Params) override;
+    UFUNCTION(BlueprintCallable, Category="Verification", meta=(DevelopmentOnly))
+    void InjectMouseDelta(float X, float Y);
     UFUNCTION(BlueprintCallable, Category="HUD") void SetCombatPaused(bool bPaused);
 };
 
